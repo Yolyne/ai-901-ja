@@ -56,3 +56,47 @@ details p { margin-bottom: 0; }
 .lesson-nav { margin-top: 2.5rem; }
 .lesson-nav a { color: #075c65; border-color: #90b4b8; background: #fff; }
 .lesson-nav a:hover { background: #e3f1ef; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.unit-toc {
+  display: block;
+  max-width: 44rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #a7c7ca;
+  border-radius: .65rem;
+  background: #fff;
+}
+.unit-toc h2 { font-size: 1.25rem; margin: 0 0 .6rem; }
+.unit-toc ol, .lesson .lab-steps {
+  display: block;
+  list-style: decimal;
+  padding-left: 1.5rem;
+}
+.unit-toc li, .lesson .lab-steps li { padding: 0; border: 0; border-radius: 0; background: transparent; }
+.unit-toc a { padding: 0; color: #075c65; border: 0; }
+.unit-toc a:hover { background: transparent; color: #162d37; }
+.lesson .lesson-unit { padding: 1.65rem 0 0; }
+.lesson .lesson-unit h2 { margin-top: 0; }
+.lesson-unit + .lesson-unit { margin-top: 1.25rem; border-top: 1px solid #ccdade; }
+.lesson-unit h3 { margin-top: 1.3rem; }
+.unit-source { font-size: .875rem; }
+.unit-question { margin-bottom: 1rem; }
+.lab-steps li + li { margin-top: .45rem; }
+.lesson pre {
+  padding: .9rem 1rem;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: .5rem;
+  background: #102e3c;
+  color: #f4fafc;
+  font-size: .875rem;
+  line-height: 1.65;
+}

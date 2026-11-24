@@ -15,20 +15,48 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>業務資料</li><li>ナレッジ ソース</li><li>ナレッジ ベース</li><li>根拠付き回答</li></ol></figure>
-<article>
-<h2>Foundry IQ の役割</h2>
-<p>Foundry IQ は、エージェントが業務データから根拠を取得するための仕組みです。検索用のデータを個別のナレッジ ソースとして用意し、ナレッジ ベースから利用します。複数の問いを含む質問では、検索に必要な観点を分けて情報を取得する構成もあります。</p>
-<h2>ナレッジ ベースを作る</h2>
-<p>演習で参照するサンプル資料をそろえ、ナレッジ ソースを設定します。ナレッジ ベースを構成したら、エージェントにつなぐ前に質問を試し、期待する資料と該当箇所が取得できるか確認します。文書の更新やアクセス権も考慮します。</p>
-<h2>エージェントから利用する</h2>
-<p>エージェントにナレッジ ベースを参照する機能を設定し、業務資料を根拠にするよう指示します。回答の文章と引用元を照合し、資料に答えがない場合や古い版と新しい版がある場合も試します。</p>
-<h2>ミニ演習</h2>
-<p>回答には出典が付きましたが、根拠を読んでも数字が一致しません。何を調べますか。</p>
-<details><summary>解答例を見る</summary><p>引用先が適用範囲と日付の合う資料か確認し、合っていれば取得結果の数値をモデルが取り違えていないかを見ます。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/5-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">AI の回答を組織のデータで裏付ける</a></li><li><a href="#unit-2">Foundry IQ と Azure AI Search</a></li><li><a href="#unit-3">ナレッジ ベースとナレッジ ソース</a></li><li><a href="#unit-4">エージェントに接続して評価する</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">AI の回答を組織のデータで裏付ける</h2>
+<p>社内規程や製品資料を使うアプリでは、回答に必要な根拠を取得できることが重要です。Foundry IQ はデータを参照して回答するための知識の仕組みです。Microsoft 365 やデータ分析向けの Microsoft IQ の各機能と並び、エージェントが利用する情報の検索を担います。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · AI の回答を組織のデータで裏付ける</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">Foundry IQ と Azure AI Search</h2>
+<p>Foundry IQ は Azure AI Search の検索基盤を使います。ナレッジ ソースで資料の接続先や検索方法を定義し、ナレッジ ベースでソースをまとめ、検索の動きを構成します。複数の観点が必要な自然言語の質問を分けて検索し、関連する結果を返せます。</p>
+<p>利用可能な Azure AI Search リソースを選び、Foundry と接続します。プレイグラウンドで使うプロジェクトや実際のエージェントの ID に、対象データを読み取るためのロールを割り当てます。検索サービスの構成と、エージェントからのアクセス権をそれぞれ確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/2-explore-foundry-iq">Microsoft Learn の参照元<span class="visually-hidden"> · Foundry IQ と Azure AI Search</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">ナレッジ ベースとナレッジ ソース</h2>
+<p>対応するソースには既存の検索索引などがあり、資料の場所、更新頻度、権限、必要な前処理を考慮して選びます。一つのナレッジ ベースから複数のソースを利用できます。資料ごとに識別子、版、出典を持たせることで、回答の根拠を追いやすくなります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/3-knowledge-bases">Microsoft Learn の参照元<span class="visually-hidden"> · ナレッジ ベースとナレッジ ソース</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">エージェントに接続して評価する</h2>
+<p>Foundry のエージェントにナレッジ ベースを設定し、規程や資料を根拠に答えること、根拠が足りなければそう伝えること、参照先を示すことを指示します。期待する文書が検索されるか、回答と引用元が一致するかを別々に確認します。</p>
+<p>資料にない質問、異なる版が存在する質問、複数資料を参照する質問を試します。取得結果に問題があればソースや検索設定、適切な結果から誤答したら指示や回答の組み立て方を見直します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/4-connect-agents">Microsoft Learn の参照元<span class="visually-hidden"> · エージェントに接続して評価する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>Foundry IQ をエージェントにつなぎ、根拠の取得と回答を検証します。</p>
+<ol class="lab-steps"><li>演習で示される Azure AI Search を準備し、Foundry プロジェクトの ID から検索データを読めるように対象範囲の権限を設定します。</li><li>資料のナレッジ ソースを作成し、ナレッジ ベースに追加します。検索して期待する資料を取得できることを確認します。</li><li>エージェントにそのナレッジ ベースを設定し、出典を示すこと、情報が不足する場合はそう伝えることを指示します。</li><li>資料に答えがある質問とない質問を比べます。回答の根拠を開き、要求した数字、版、対象者が一致しているか確かめます。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/07-foundry-iq.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/5-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? プレイグラウンドで動いたのに本番で文書を取得できない場合、何を確認しますか。</p><details><summary>解答例を見る</summary><p>本番のエージェントが使う ID に、対象の検索データに必要な権限があるかを確認します。</p></details></div>
+<div class="unit-question"><p>「旅費と宿泊費はいくらまでですか」のような質問を、エージェントによる検索はどう処理できますか。</p><details><summary>解答例を見る</summary><p>旅費と宿泊費の複数の観点に分けて根拠を取得し、各結論に対応する資料を示せます。</p></details></div>
+<div class="unit-question"><p>回答には出典が付きましたが、根拠を読んでも数字が一致しません。何を調べますか。</p><details><summary>解答例を見る</summary><p>引用先が適用範囲と日付の合う資料か確認し、合っていれば取得結果の数値をモデルが取り違えていないかを見ます。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>Azure AI Search を基盤に、ナレッジ ソースとナレッジ ベースを使います。エージェントの回答内容、引用、アクセス権を確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-extraction.html">前の章 · 文書・画像・音声・動画から情報を取り出す</a><a href="foundry-voice.html">次の章 · 音声で対話するエージェントを試す</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

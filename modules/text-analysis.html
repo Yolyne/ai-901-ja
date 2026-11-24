@@ -15,22 +15,51 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>原文</li><li>トークンに分割</li><li>頻度や意味を分析</li></ol></figure>
-<article>
-<h2>トークン化</h2>
-<p>テキストを単語やサブワードなどの単位に分けます。日本語の文には通常単語間に空白がないため、単純な空白分割では「配送が早い」を適切に扱えません。分割方法は、単語の集計やモデルへの入力といった目的に合わせます。</p>
-<h2>統計によるテキスト分析</h2>
-<p>単語の出現回数を数えると、よく出る話題を把握できます。どの文書にも出る語より、特定の文書に集中する語を重視する方法の一つが TF-IDF です。頻度を集計するときは、表記揺れや不要な語の影響も確認します。</p>
-<h2>意味を扱う言語モデル</h2>
-<p>文章を埋め込みベクトルに変換すると、表記の異なる文章も意味の近さで探せます。「到着が遅い」と「配達に時間がかかった」は共通語が少なくても近い候補になります。否定や皮肉を含む文章では、意味を扱うモデルでも誤ることがあります。</p>
-<h2>実務で使う分析</h2>
-<p>キーフレーズ抽出は話題の語句、固有表現認識は人名・組織名など、感情分析は評価の傾向、要約は全体の要点を取り出します。レビューの感情を商品全体で集計する場合と、配送・梱包など項目別に切る場合では得られる示唆が変わります。</p>
-<h2>ミニ演習</h2>
-<p>「配達に時間がかかった」を含むレビューを、「配送が遅い」という質問で探すには何が役立ちますか。</p>
-<details><summary>解答例を見る</summary><p>埋め込みを使った意味検索です。単語が一致しなくても、意味の近い文章を候補にできます。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/4b-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">テキスト分析の目的</a></li><li><a href="#unit-2">トークン化</a></li><li><a href="#unit-3">統計によるテキスト分析</a></li><li><a href="#unit-4">意味を扱う言語モデル</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">テキスト分析の目的</h2>
+<p>レビューの話題を集計する、問い合わせにタグを付ける、大量の文書から関連する箇所を探すなど、目的によって適切な表現が変わります。言葉を分割して数える方法と、文脈が近いものを探す方法を順に見ます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · テキスト分析の目的</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">トークン化</h2>
+<p>テキストを語やサブワードに分けます。集計用なら大文字小文字や表記揺れを正規化し、頻出しても意味の薄い語を除く場合があります。語形をまとめる処理には、語幹を取り出す方法や辞書形にそろえる方法があります。日本語では空白がなく、分割器や辞書で結果が変わります。</p>
+<p>「配送が速い」と「配送は遅い」を集計するとき、助詞を除いて「配送・速い」と「配送・遅い」にすると話題と評価を分けて見られます。ただし、否定を一緒に捨てると「遅くない」の意味が変わるため、目的に合う前処理を選びます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/2-how-it-works">Microsoft Learn の参照元<span class="visually-hidden"> · トークン化</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">統計によるテキスト分析</h2>
+<p>単語が文書に何回出るかを数え、それを特徴量として比較できます。単語の順序を捨てる表現は簡潔ですが、「返品できる」「返品できない」の違いが弱まります。連続する語を n グラムとして扱うと、短い語の並びを残せます。</p>
+<p>TF-IDF は、ある文書によく現れ、全体ではあまり現れない語を重く見ます。すべての問い合わせに出る「商品」より、一部で繰り返される「冷凍便」の方がその話題を特徴づけると考えます。単語の頻度だけでは、表記が異なる同義表現を結び付けにくい点も押さえます。</p>
+<p>文から要点を選ぶ別の方法に TextRank があります。語や文を点、関連度を辺とするグラフを作り、つながりの強い箇所を重要と判断します。たとえば抽出型要約では、重要度の高い文を元の文書から選びます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/3-statistical-techniques">Microsoft Learn の参照元<span class="visually-hidden"> · 統計によるテキスト分析</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">意味を扱う言語モデル</h2>
+<p>単語や文をベクトルに変換し、距離やコサイン類似度で意味の近さを比較できます。「配達が遅い」と「到着まで時間がかかった」が近い結果になる一方、商品型番では文字列の完全一致の方が確実な場合があります。</p>
+<p>単語のベクトル表現では、ある語から別の語への差が関係を表す場合があります。差を別の語に足して類推を試せますが、訓練データや表現方法によってずれます。分類や固有表現認識の正しさは、課題に合う例で確認します。</p>
+<p>文脈を使うモデルでは、同じ語にも周囲の語に応じた表現を割り当てます。固有表現認識、感情分析、要約などでは、直接ラベルを得る方法と汎用モデルに出力形式を指示する方法を、精度や出力の安定性で比較します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/4-semantic-models">Microsoft Learn の参照元<span class="visually-hidden"> · 意味を扱う言語モデル</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>言語分析の実習で、同じテキストに複数の分析をかけ、出力を比較します。</p>
+<ol class="lab-steps"><li>「京都の店舗で3月4日に買った。品物は良いが配送に不満がある」のような例文を入力し、キーフレーズと固有表現を確認します。</li><li>続けて感情分析を行い、肯定と否定が一文にあるときに文全体のラベルと対象別の結果がどう違うか確認します。</li><li>別の言語で短文を入力し、言語検出や要約で得られる値を確かめます。最後に、意味を保ちながら言い換え、抽出結果が変わるか比較します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-concepts/Instructions/exercises/03-language.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/4b-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? ほぼ全資料で同じ頻度で使われる「お客様」は TF-IDF でどのように扱われますか。</p><details><summary>解答例を見る</summary><p>多くの文書に出る語は IDF が小さく、文書の識別に用いる重みが下がります。</p></details></div>
+<div class="unit-question"><p>空白のない日本語を単語頻度で比較する前に何が必要ですか。</p><details><summary>解答例を見る</summary><p>単語やサブワードに分割するトークン化です。集計用途に合う分割器を選びます。</p></details></div>
+<div class="unit-question"><p>「配達に時間がかかった」を含むレビューを、「配送が遅い」という質問で探すには何が役立ちますか。</p><details><summary>解答例を見る</summary><p>埋め込みを使った意味検索です。単語が一致しなくても、意味の近い文章を候補にできます。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/5-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>トークン化は分析の土台です。頻度や TF-IDF は特徴語を、ベクトル表現は意味の近さを扱います。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/6-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="generative-ai.html">前の章 · 生成 AI と AI エージェント</a><a href="speech-concepts.html">次の章 · 音声認識と音声合成</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

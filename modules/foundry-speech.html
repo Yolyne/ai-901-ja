@@ -15,20 +15,81 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>マイク</li><li>発話の認識またはモデル入力</li><li>応答</li><li>再生</li></ol></figure>
-<article>
-<h2>音声認識をアプリに組み込む</h2>
-<p>Azure Speech の構成にリージョンや認証を設定します。Speech SDK の認識クライアントにマイクまたはファイルを渡し、文字起こし結果を読み取ります。発話が拾えなかった場合と認証や通信でキャンセルされた場合を分け、必要なら聞き返しや再試行を実装します。</p>
-<h2>音声合成をアプリに組み込む</h2>
-<p>応答のテキスト、声、言語を決め、Speech SDK からスピーカーへ再生するかファイルへ出力します。原稿を変えずに発音だけ調整したいときは、利用する機能が対応していれば SSML を使えます。長い文では読み上げ速度と区切りも試します。</p>
-<h2>音声の指示に答える</h2>
-<p>音声入力対応のマルチモーダル モデルをデプロイし、録音した短い音声を指定の形式で送って応答を比較します。エージェントに音声を組み込む場合は、認識・エージェント処理・合成の各段階で何が返るか確認します。音声の受付と応答を切り替えるときは、読み上げをマイクが拾わないかも試します。</p>
-<h2>ミニ演習</h2>
-<p>「明日の午後に予約できますか？」への応答が意図と違うとき、まずどう切り分けますか。</p>
-<details><summary>解答例を見る</summary><p>段階を分けた構成なら認識した文字列を確認し、続いてモデルや予約照会の結果を点検します。最後に読み上げが応答内容と一致するか確かめます。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/5-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">認識・合成・音声対話を選ぶ</a></li><li><a href="#unit-2">Azure Speech で音声を認識する</a></li><li><a href="#unit-3">Azure Speech で文章を読み上げる</a></li><li><a href="#unit-4">音声対応エージェントと Voice Live</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">認識・合成・音声対話を選ぶ</h2>
+<p>文字起こしが目的なら Speech to Text、読み上げなら Text to Speech、音声で質問して音声で返答を受けるなら音声対話が候補です。録音の一括処理、会話中の応答、必要な言語や待ち時間を考えて構成を選びます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 認識・合成・音声対話を選ぶ</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">Azure Speech で音声を認識する</h2>
+<p>Speech SDK の SpeechConfig で接続先と認証を指定し、AudioConfig でマイクや音声ファイルを入力に設定します。SpeechRecognizer で単発または継続して認識し、文字起こしテキストを受け取ります。単発なら recognize_once_async の結果を待って、認識成功、発話を認識できなかったケース、キャンセルを区別します。</p>
+<p>音声ファイルを使うと同じ入力で結果を比較できます。会話には継続認識やストリーム、一括処理にはバッチ処理を検討します。サンプルで句読点や固有名詞、数字が許容範囲に収まるかを確認します。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<pre><code># pip install azure-cognitiveservices-speech
+import os
+import azure.cognitiveservices.speech as speech
+
+config = speech.SpeechConfig(
+    endpoint=os.environ[&quot;AZURE_SPEECH_ENDPOINT&quot;],
+    subscription=os.environ[&quot;AZURE_SPEECH_KEY&quot;],
+)
+config.speech_recognition_language = &quot;ja-JP&quot;
+recording = speech.audio.AudioConfig(filename=&quot;announcement.wav&quot;)
+recognizer = speech.SpeechRecognizer(speech_config=config, audio_config=recording)
+result = recognizer.recognize_once_async().get()
+if result.reason == speech.ResultReason.RecognizedSpeech:
+    print(result.text)
+else:
+    print(result.reason)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/2-speech-recognition">Microsoft Learn の参照元<span class="visually-hidden"> · Azure Speech で音声を認識する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">Azure Speech で文章を読み上げる</h2>
+<p>SpeechConfig で音声名や出力形式を指定し、SpeechSynthesizer の出力先をスピーカーかファイルに設定します。テキストを渡して非同期で合成し、成功またはキャンセルの結果を確認します。読み、間、速度を指定する必要がある場合は、対応する音声で SSML を使います。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<pre><code># pip install azure-cognitiveservices-speech
+import os
+import azure.cognitiveservices.speech as speech
+
+config = speech.SpeechConfig(
+    endpoint=os.environ[&quot;AZURE_SPEECH_ENDPOINT&quot;],
+    subscription=os.environ[&quot;AZURE_SPEECH_KEY&quot;],
+)
+config.speech_synthesis_voice_name = &quot;ja-JP-NanamiNeural&quot;
+audio = speech.audio.AudioOutputConfig(filename=&quot;guide.wav&quot;)
+synthesizer = speech.SpeechSynthesizer(speech_config=config, audio_config=audio)
+result = synthesizer.speak_text_async(&quot;受付は午前7時30分に始まります。&quot;).get()
+print(result.reason)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/3-speech-synthesis">Microsoft Learn の参照元<span class="visually-hidden"> · Azure Speech で文章を読み上げる</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">音声対応エージェントと Voice Live</h2>
+<p>音声対話では、マイクの音を送り、応答音声を連続して受け取ります。Azure Speech の Voice Live を使う構成ではリアルタイムのセッションを開き、双方向に音声やイベントをやり取りします。発話終了、応答開始、割り込み、セッション終了のイベントを区別して、音声の送受信と再生を制御します。</p>
+<p>試作時は Foundry のサンプルや公式 SDK を使い、マイクからの入力と応答の再生を一つずつ確認します。文字起こし用 SDK の単発認識と、音声を直接送って応答を受ける処理の違いを押さえます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/4-voice-live">Microsoft Learn の参照元<span class="visually-hidden"> · 音声対応エージェントと Voice Live</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>Foundry と Azure Speech で、発話を認識し、その結果を読み上げ、最後に音声から直接応答する流れを試します。</p>
+<ol class="lab-steps"><li>任意の短い WAV ファイルを用意し、音声認識クライアントに渡します。期待する言葉と文字起こしを比べます。</li><li>読み上げ用のテキストと声を指定し、ファイルまたはスピーカーで合成結果を聴きます。日付や数字の読み方を確認します。</li><li>音声入力が使えるモデルまたは音声対話のプレイグラウンドに同じ質問を送り、内容に沿った応答が返ることを確認します。</li><li>リアルタイムのセッションでは、発話中に長めに間を空けたり応答を途中で止めたりして、送信側と再生側の動きを比べます。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/04a-speech.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/5-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? 音声認識とリアルタイムの音声対話では、アプリが受け取る主要な結果は何ですか。</p><details><summary>解答例を見る</summary><p>音声認識はテキストです。音声対話は応答音声や会話の制御イベントをやり取りできます。</p></details></div>
+<div class="unit-question"><p>同じ録音ファイルを繰り返し文字にして精度を比較するには、どの API の組み込みが適していますか。</p><details><summary>解答例を見る</summary><p>Speech to Text SDK にファイルを設定すると、同じ録音をプログラムから処理できます。</p></details></div>
+<div class="unit-question"><p>「明日の午後に予約できますか？」への応答が意図と違うとき、まずどう切り分けますか。</p><details><summary>解答例を見る</summary><p>段階を分けた構成なら認識した文字列を確認し、続いてモデルや予約照会の結果を点検します。最後に読み上げが応答内容と一致するか確かめます。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>Azure Speech で音声認識と合成を呼び出せます。Voice Live を使う対話では、双方向の音声と会話イベントを扱います。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-text.html">前の章 · テキストを分析する</a><a href="foundry-vision.html">次の章 · 画像を理解し、画像を生成する</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

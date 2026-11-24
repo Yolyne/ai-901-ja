@@ -15,20 +15,49 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>利用者の発話</li><li>エージェントの状況判断</li><li>音声応答</li></ol></figure>
-<article>
-<h2>音声エージェントを作る</h2>
-<p>用途と対応する言語を決め、Foundry で演習が指定するプロジェクトと音声対応モデルを準備します。音声エージェントを開き、マイクから短く呼びかけて応答が再生されるか確認します。マイク権限、音声デバイス、モデルの利用条件は最初に切り分けます。</p>
-<h2>用途に合わせて設定する</h2>
-<p>予約案内なら「日時を聞く」「復唱する」「空き枠が確認できないときは確認できないと伝える」のように、役割と会話の進め方を指示します。利用する声や発話の途切れを扱う設定がある場合は、実際の会話に近い入力で調整します。</p>
-<h2>テストと改善</h2>
-<p>通常の発話、言い直し、長い間、発話の途中での割り込みを試します。音声を聞き取る段階、意図を理解する段階、返答までの待ち時間を分けて記録します。プロンプトや音声設定を見直したら、同じテストで以前より改善したかを確認します。</p>
-<h2>ミニ演習</h2>
-<p>「金曜、いや土曜です」と言ったとき、どんな返しなら予約ミスを減らせますか。</p>
-<details><summary>解答例を見る</summary><p>訂正された土曜を復唱し、時間など不足項目を尋ねます。最終確定前に日時をまとめて確認します。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/5-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">音声対話で適切な場面を選ぶ</a></li><li><a href="#unit-2">ポータルで音声エージェントを作る</a></li><li><a href="#unit-3">指示、声、あいさつを設定する</a></li><li><a href="#unit-4">タイミングと割り込みをテストする</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">音声対話で適切な場面を選ぶ</h2>
+<p>通話での案内や予約のように手が使いにくい場面で、自然な話し言葉を使って応答できる音声エージェントが役立ちます。最初は受付時間の案内など目的を絞り、最初の呼びかけ、必要な聞き返し、完了条件を決めます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 音声対話で適切な場面を選ぶ</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">ポータルで音声エージェントを作る</h2>
+<p>Foundry で対象のプロジェクトを開き、音声エージェントを作成します。利用できる音声対応モデルと接続が揃っているかを確認し、音声のテスト画面でマイク入力を許可して短い会話を始めます。入力が来ない場合はマイクと権限、応答が聞こえない場合は音声出力を分けて確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/2-explore-create-voice-agent">Microsoft Learn の参照元<span class="visually-hidden"> · ポータルで音声エージェントを作る</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">指示、声、あいさつを設定する</h2>
+<p>書き言葉の長い説明は、音声では理解しにくくなることがあります。「一度に一つだけ質問し、予約の日時と人数を復唱する」といった会話向けの指示を設定します。あいさつでは何を手伝えるかを短く伝えます。</p>
+<p>言語や用途に合う声を選び、読み方や速度を確認します。聞き取れない場合や情報が足りない場合の応答、引き継ぎ先の案内も指示します。実際に予約を確定する機能があるなら、日時と人数を復唱してから実行するようにします。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/3-configure-voice-agent">Microsoft Learn の参照元<span class="visually-hidden"> · 指示、声、あいさつを設定する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">タイミングと割り込みをテストする</h2>
+<p>話している途中の間、短い返事、言い直し、応答中の割り込みを試します。発話の終わりを早く判断しすぎると途中で応答し、遅すぎると会話が間延びします。 Basic は音量や無音の長さで、Azure semantic は発話の意味も使って話者の交代を判断します。Basic の Silence duration を長くすると途中の間を許容しやすくなりますが、返答開始が遅くなる場合があります。待ち時間、聞き取り、意図の理解、応答の長さを分けて記録します。</p>
+<p>設定や指示を一つ変えたら、修正前と同じ入力で試します。会話の一部がうまくいっても、先に伝えた情報を引き継げているか、修正後の日時を確認しているかまで見ます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/4-test-improve-voice-agent">Microsoft Learn の参照元<span class="visually-hidden"> · タイミングと割り込みをテストする</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>音声エージェントで受付シナリオを作り、聞き返し、間、割り込みを試します。</p>
+<ol class="lab-steps"><li>Foundry の音声エージェントを作り、利用する声と最初のあいさつを設定します。マイクで短く話し、応答を聴きます。</li><li>「まず日付を聞く。次に人数を聞く。確定前に両方を復唱する」と指示し、日付や人数が欠けた入力を送ります。</li><li>言い直し、話の途中の間、応答中に割り込む入力を試し、発話が途切れたと見なすタイミングを確認します。</li><li>あいさつや一度に尋ねる内容の数を調整し、同じ会話を繰り返して、応答時間と聞き取りやすさを比べます。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/08-configure-voice-agent.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/5-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? 正しい内容を返す音声エージェントでも、会話がしづらくなるのはどんな場合ですか。</p><details><summary>解答例を見る</summary><p>返答が長い、返答までの間が長い、利用者が言い直しても応答が止まらないなど、会話のタイミングに問題がある場合です。</p></details></div>
+<div class="unit-question"><p>Basic の設定で、途中で一拍置くと応答が始まってしまう場合、まず何を試しますか。</p><details><summary>解答例を見る</summary><p>無音を発話終了と判断するまでの時間を長くして比較します。対応する構成なら意味を使う Azure semantic 方式も試せます。</p></details></div>
+<div class="unit-question"><p>案内の指示しかなく返金ツールもない場合、実際の返金を依頼されたらどう答えますか。</p><details><summary>解答例を見る</summary><p>完了したと伝えず、案内できる手順か担当窓口を短く案内します。</p></details></div>
+<div class="unit-question"><p>「金曜、いや土曜です」と言ったとき、どんな返しなら予約ミスを減らせますか。</p><details><summary>解答例を見る</summary><p>訂正された土曜を復唱し、時間など不足項目を尋ねます。最終確定前に日時をまとめて確認します。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>音声向けに短い指示とあいさつを作ります。聞き返し、応答の間、利用者の割り込みを試し、同じテストで改善を確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-iq.html">前の章 · Microsoft Foundry IQ で回答に根拠を持たせる</a><a href="../index.html">目次に戻る</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

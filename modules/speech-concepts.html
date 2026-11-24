@@ -15,20 +15,50 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>発話</li><li>音声認識</li><li>テキスト</li><li>音声合成</li></ol></figure>
-<article>
-<h2>音声を使うアプリ</h2>
-<p>会議の字幕、音声案内、多言語の自動通訳では、入力と出力が違います。字幕は音声からテキスト、読み上げはテキストから音声です。通訳では音声認識の後に翻訳し、その結果を表示するか音声として返します。</p>
-<h2>音声認識</h2>
-<p>音声信号から話された言葉を推定します。録音ファイルをまとめて処理する場合と、会話に合わせて結果を受け取る場合があります。言語、雑音、アクセント、固有名詞で精度が変わるので、実際に近い録音で確認します。</p>
-<h2>音声合成</h2>
-<p>文字列を音声に変換します。言語と声を指定し、対応している場合は SSML で間や読み方を調整できます。金額、日付、製品名、略語は想定した発音になるかを確かめます。</p>
-<h2>ミニ演習</h2>
-<p>駅の日本語アナウンスを英語字幕と英語音声にするには、どんな順番で処理しますか。</p>
-<details><summary>解答例を見る</summary><p>日本語を音声認識し、英語に翻訳します。翻訳テキストを字幕に表示し、英語の音声合成にも渡します。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/5-exercise-speech">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">音声を扱う仕事</a></li><li><a href="#unit-2">音声を使うアプリの例</a></li><li><a href="#unit-3">音声認識</a></li><li><a href="#unit-4">音声合成</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">音声を扱う仕事</h2>
+<p>音声アプリでは、話された内容を文字にする、文字を読み上げる、別の言語に訳す、発話に答えるといった機能を組み合わせます。入力が録音かマイクか、結果が文字・別言語の文字・音声のどれかを整理すると設計できます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 音声を扱う仕事</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">音声を使うアプリの例</h2>
+<p>会議字幕には音声認識、駅の読み上げには合成、会話通訳には認識・翻訳・合成が必要です。録音が終わってから処理する方法と、会話しながら結果を出す方法では、処理時間や途中結果の扱いが異なります。字幕と文字入力の選択肢は、マイクが使えない利用者にも役立ちます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/2-speech-solutions">Microsoft Learn の参照元<span class="visually-hidden"> · 音声を使うアプリの例</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">音声認識</h2>
+<p>音声の波形から言葉を推定します。騒音、マイクの品質、アクセント、専門語や固有名詞が結果に影響します。必要に応じて認識言語を指定し、サービスが対応する場合は認識のヒントとして語句の候補を設定します。文書化が目的なら句読点や話者の区別も結果の確認項目です。</p>
+<p>例として「明日の第3便です」を静かな部屋と騒がしい部屋で録音すると、数字や便名が拾えないことがあります。全体の正解率だけでなく、業務上重要な数字が正しいかを調べます。</p>
+<p>デジタル化した音から短い区間ごとに情報を取り出します。古典的な認識では、人が聞く周波数の特性を考慮した特徴量（MFCC など）を使い、音響モデルで音素の候補を、言語モデルで自然な語の並びを評価します。ビーム サーチでは、有力な候補を複数残しながら文全体を組み立てます。最後に句読点や数字の表記を整えます。現代の認識モデルには、これらの工程をまとめて学習する構成もあります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/3-speech-recognition">Microsoft Learn の参照元<span class="visually-hidden"> · 音声認識</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">音声合成</h2>
+<p>合成では言語、音声、出力形式を選び、テキストを読み上げます。SSML は、対応する音声で発音、間、速度、抑揚を指定するときに使うマークアップです。金額・日付・略語の読みが曖昧なら、原稿や SSML を調整して実際の音声を聞き比べます。</p>
+<p>合成の処理では、まず「7:30」のような表記を読み上げ向けに正規化し、文字列から音素を推定します。次にどこを強く読み、どのくらい間を空けるかといった韻律を決め、最終的に可聴の波形を生成します。ニューラル音声合成では、音響モデルが音の表現を作り、ボコーダーが波形へ変換する構成があります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/4-speech-synthesis">Microsoft Learn の参照元<span class="visually-hidden"> · 音声合成</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>公式のブラウザー実習で、音声を入力する場合と、応答を音声で受け取る場合を別々に試します。</p>
+<ol class="lab-steps"><li>マイクを許可し、数字と固有名詞を含む短い文章を話します。画面に出たテキストと実際の発話を比べます。</li><li>同じ文を少し早く、次にゆっくり話して、数字や固有名詞の認識がどう変わるか確認します。</li><li>短い案内文を読み上げて、区切りと発音を聴きます。数値や略語を別の書き方に変更し、案内にふさわしい読みになるか比べます。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-concepts/Instructions/exercises/04-speech.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/5-exercise-speech">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? 録音中に正しかった認識結果が、実際の窓口の騒音下で悪化しました。何を比較しますか。</p><details><summary>解答例を見る</summary><p>同じ文を静かな環境と窓口に近い環境で録音し、数字や固有名詞の誤りと認識不能になった割合を比べます。</p></details></div>
+<div class="unit-question"><p>音声認識で MFCC を得る工程は波形の取り込み、前処理、後処理のうちどれですか。</p><details><summary>解答例を見る</summary><p>前処理です。短時間の波形から、人の聴覚に近い周波数特性を反映した特徴を取り出します。</p></details></div>
+<div class="unit-question"><p>読み上げで発音は合っているものの、どこが質問か分かりにくいときに改善するのは何ですか。</p><details><summary>解答例を見る</summary><p>強調、間、抑揚といった韻律です。疑問文に合う抑揚や間を確認します。</p></details></div>
+<div class="unit-question"><p>駅の日本語アナウンスを英語字幕と英語音声にするには、どんな順番で処理しますか。</p><details><summary>解答例を見る</summary><p>日本語を音声認識し、英語に翻訳します。翻訳テキストを字幕に表示し、英語の音声合成にも渡します。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>音声認識は発話を文字にし、音声合成は文字を読み上げます。会話や翻訳では、必要な処理を組み合わせます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="text-analysis.html">前の章 · 自然言語処理とテキスト分析</a><a href="vision-concepts.html">次の章 · コンピューター ビジョン</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

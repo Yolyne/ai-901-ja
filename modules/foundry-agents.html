@@ -15,20 +15,87 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>モデルを選択</li><li>ポータルで試す</li><li>Python で呼ぶ</li><li>ツールを追加</li></ol></figure>
-<article>
-<h2>モデルとデプロイの選択</h2>
-<p>チャット、画像入力、音声など、必要な入出力を先に決めます。デプロイ方式によって対応リージョンや料金、処理容量が異なります。応答の長さや、対応していれば温度などの生成設定を変更し、同じ質問で挙動を比較します。</p>
-<h2>生成モデルを呼び出す</h2>
-<p>プレイグラウンドでシステム メッセージに役割とルールを書き、ユーザー メッセージに依頼を入れます。Python クライアントでは公式演習の SDK を使い、資格情報でプロジェクトに接続して推論クライアントを取得します。デプロイ名と入力を渡し、応答本文を取得して表示します。認証エラーとデプロイ名の誤りは別々に切り分けます。</p>
-<h2>エージェントの作成と利用</h2>
-<p>エージェントにモデル、指示、必要なツールを設定して保存します。ポータルのテスト画面で通常の質問と、ツールを必要とする質問の両方を送ります。クライアント側からはプロジェクトへ接続し、作成したエージェントを指定してメッセージを送り、応答を受け取ります。</p>
-<h2>ミニ演習</h2>
-<p>「返品手順を説明し、注文番号があれば配送状況も調べる」エージェントを、どんな入力でテストしますか。</p>
-<details><summary>解答例を見る</summary><p>一般的な返品質問、有効な注文番号、存在しない注文番号、番号のない問い合わせを用意します。配送参照が必要なときだけツールを使うか確認します。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/6-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">モデルとエージェントの役割</a></li><li><a href="#unit-2">カタログからモデルを選び、デプロイする</a></li><li><a href="#unit-3">プレイグラウンドと Python からモデルを使う</a></li><li><a href="#unit-4">ポータルでエージェントを作り、コードから使う</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">モデルとエージェントの役割</h2>
+<p>モデルを直接呼び出すアプリでは、何を入力し、返答を次にどう扱うかをアプリが決めます。エージェントには、ツールを選んで呼び出し、その結果を使って応答する処理を任せられます。どちらでも、目的に合うモデルのデプロイが出発点です。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · モデルとエージェントの役割</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">カタログからモデルを選び、デプロイする</h2>
+<p>Foundry のモデル カタログでは、提供元、入出力形式、対応機能などを見て候補を選びます。学習資料を要約する用途なら文章が扱えること、写真を説明する用途なら画像入力が扱えることを確かめます。評価データで品質を比較し、リージョン、費用、応答速度、割り当てを確認します。</p>
+<p>デプロイ名はクライアントが呼び出すときの識別子で、元のモデル名と異なる場合があります。標準系・プロビジョニング系などの選択肢はモデルやリージョンによって異なります。割り当ての TPM は1分間に扱うトークンの容量に関係し、RPM の制限も呼び出し数に影響します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/2-generative-ai-models">Microsoft Learn の参照元<span class="visually-hidden"> · カタログからモデルを選び、デプロイする</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">プレイグラウンドと Python からモデルを使う</h2>
+<p>プレイグラウンドでシステム側の指示とユーザー入力を試し、モデルが対応する場合は温度、上位確率によるサンプリング、最大出力トークンなどを調整します。同じ入力で一つずつ条件を変え、形式、内容、分量を確認します。</p>
+<p>Python ではプロジェクトや推論用のエンドポイント、認証情報、デプロイ名を揃えます。Foundry の SDK でプロジェクトに接続し、OpenAI 互換のクライアントを取得できる構成では、Responses API にデプロイ名と入力を渡して応答テキストを取り出します。設定値をコードから分け、認証失敗、デプロイ名の間違い、利用上限のエラーを区別します。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<p>推論用の URL には Azure OpenAI の v1 エンドポイントを指定します。デプロイ名はポータルの表示に合わせます。</p>
+<pre><code># pip install openai
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    base_url=os.environ[&quot;AZURE_OPENAI_V1_URL&quot;],
+    api_key=os.environ[&quot;AZURE_OPENAI_KEY&quot;],
+)
+response = client.responses.create(
+    model=os.environ[&quot;CHAT_DEPLOYMENT&quot;],
+    instructions=&quot;問い合わせを「配送」「返品」「その他」のいずれかに分類してください。&quot;,
+    input=&quot;届いた商品を送り返す方法を知りたいです。&quot;,
+)
+print(response.output_text)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/3-using-generative-ai-models">Microsoft Learn の参照元<span class="visually-hidden"> · プレイグラウンドと Python からモデルを使う</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">ポータルでエージェントを作り、コードから使う</h2>
+<p>作成画面でモデルと指示を指定し、業務資料の検索や注文照会など、必要なツールを追加します。テスト画面で普通の質問、ツールが必要な質問、入力が欠けた質問を送って挙動を確かめます。ツールの入力と応答が想定通りかも見ます。</p>
+<p>Python からはプロジェクトに認証し、対象のエージェントを指定したクライアントを取得します。会話を作り、その識別子と入力を使って応答を受け取ります。次のメッセージでも同じ会話を指定すれば、先のやり取りを受けた質問を試せます。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<p>Azure CLI などでサインインし、エージェントへのアクセス権を持つ ID を使います。エージェントは名前で指定します。</p>
+<pre><code># pip install &quot;azure-ai-projects&gt;=2.1.0&quot; azure-identity
+import os
+from azure.ai.projects import AIProjectClient
+from azure.identity import DefaultAzureCredential
+
+with DefaultAzureCredential() as credential, AIProjectClient(
+    endpoint=os.environ[&quot;FOUNDRY_PROJECT_ENDPOINT&quot;],
+    credential=credential,
+) as project:
+    with project.get_openai_client(agent_name=os.environ[&quot;AGENT_NAME&quot;]) as client:
+        conversation = client.conversations.create()
+        for text in (&quot;返品の手順を教えてください。&quot;, &quot;最初にすることだけ教えて。&quot;):
+            reply = client.responses.create(
+                conversation=conversation.id,
+                input=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: text}],
+            )
+            print(reply.output_text)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/4-creating-an-agent">Microsoft Learn の参照元<span class="visually-hidden"> · ポータルでエージェントを作り、コードから使う</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>Foundry のポータルと Python からモデルを使い、その後エージェントを作成します。</p>
+<ol class="lab-steps"><li>使うモデルをデプロイし、プレイグラウンドで「問い合わせを配送、返品、その他のどれかに分類」と指示します。対象が不明な入力でも試します。</li><li>Azure CLI または演習の指定する認証で接続し、プロジェクトのエンドポイントとデプロイ名をクライアントに設定します。ポータルと同じ依頼を送り、応答文字列を取り出します。</li><li>エージェントに役割と利用するツールを設定します。ツールのいる依頼、不要な依頼、不完全な入力を試し、呼び出したツールと結果を確認します。</li><li>クライアントからエージェントに同じ内容を送り、会話を引き継いで「その分類の理由も教えて」と尋ねます。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/02a-generative-ai.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/6-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? デプロイ名を指定すべきところにカタログ上のモデル名を渡すと何が起きますか。</p><details><summary>解答例を見る</summary><p>両者が一致しなければ、指定したデプロイが見つからず呼び出しに失敗します。</p></details></div>
+<div class="unit-question"><p>モデルの回答形式をソースコードを変えずに比較するには、どこで試せますか。</p><details><summary>解答例を見る</summary><p>モデルのプレイグラウンドで、指示や対応する生成パラメーターを変えて比較できます。</p></details></div>
+<div class="unit-question"><p>会話をもう一度続けるコードでは、どの値を使い回しますか。</p><details><summary>解答例を見る</summary><p>エージェントを指定したクライアントを使い、続けたい会話の ID を同じ値にします。</p></details></div>
+<div class="unit-question"><p>「返品手順を説明し、注文番号があれば配送状況も調べる」エージェントを、どんな入力でテストしますか。</p><details><summary>解答例を見る</summary><p>一般的な返品質問、有効な注文番号、存在しない注文番号、番号のない問い合わせを用意します。配送参照が必要なときだけツールを使うか確認します。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/7-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>デプロイしたモデルをポータルと Python で呼び、ツールが必要な仕事はエージェントで試します。クライアントはデプロイ名や会話 ID を正しく扱います。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/8-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-basics.html">前の章 · Azure で AI 開発を始める</a><a href="foundry-text.html">次の章 · テキストを分析する</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

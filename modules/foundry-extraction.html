@@ -15,20 +15,60 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>サンプル</li><li>アナライザーとスキーマを設定</li><li>内容を分析</li><li>結果を検証</li></ol></figure>
-<article>
-<h2>文書・フォーム・画像</h2>
-<p>アナライザーに抽出の目的と項目を設定します。請求書なら請求番号は文字列、金額は数値、明細は複数行として設計します。フォームや画像は、スキャンの傾き、小さなラベルや似た位置のフィールドなど、現実にあるばらつきを含むサンプルで試します。</p>
-<h2>音声・動画</h2>
-<p>通話から質問と対応事項を取り出す場合、音声の内容が手がかりになります。動画では、映像に写るものや話される内容に着目できます。必要な出力を先に決め、例えば「商品名と、紹介された区間」のように、どの情報が必要か明示します。</p>
-<h2>クライアントの処理</h2>
-<p>公式演習に従って Content Understanding のエンドポイントとアナライザーを指定し、対応するファイルを分析します。処理が非同期なら完了を待って結果を取り出し、期待するフィールドと型に変換します。請求金額など重要な項目では未抽出や矛盾を検出して人が確認できるようにします。</p>
-<h2>ミニ演習</h2>
-<p>請求書の分析結果を自動登録する前に、何を確認しますか。</p>
-<details><summary>解答例を見る</summary><p>請求番号の有無、日付と金額の型、通貨、明細と総額の整合を確認します。例外は保留して原文を参照します。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/4-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">Content Understanding の入出力</a></li><li><a href="#unit-2">スキーマとアナライザーで文書を分析する</a></li><li><a href="#unit-3">音声・動画から構造化データを作る</a></li><li><a href="#unit-4">演習</a></li><li><a href="#unit-5">理解度チェック</a></li><li><a href="#unit-6">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">Content Understanding の入出力</h2>
+<p>Azure Content Understanding は、文書・画像・音声・動画から定義した項目を抽出するサービスです。請求書、製品写真、通話、研修動画などでは、メディアごとに読み取れる情報が違います。取り出した結果を何に使うかから、フィールドを決めます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · Content Understanding の入出力</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">スキーマとアナライザーで文書を分析する</h2>
+<p>スキーマはフィールド名、型、説明、必要なら配列や入れ子の構造を定めます。アナライザーは、対象とする入力、抽出の構成、スキーマを組み合わせて分析する設定です。既成のアナライザーを使う場合と、用途に合わせて定義する場合があります。</p>
+<p>Foundry ポータルで文書のサンプルを入力し、文字や表の内容、フィールドと元の位置を確認します。たとえば「請求合計」を抽出するときは、税別小計や残高と混ざらない説明をスキーマに書きます。様式が異なるサンプルで試し、同じ項目が得られるか確認します。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<pre><code># pip install azure-ai-contentunderstanding
+import os
+from azure.ai.contentunderstanding import ContentUnderstandingClient
+from azure.core.credentials import AzureKeyCredential
+
+client = ContentUnderstandingClient(
+    endpoint=os.environ[&quot;FOUNDRY_ENDPOINT&quot;],
+    credential=AzureKeyCredential(os.environ[&quot;FOUNDRY_KEY&quot;]),
+)
+operation = client.begin_analyze(
+    analyzer_id=&quot;prebuilt-invoice&quot;,
+    inputs=[{&quot;url&quot;: os.environ[&quot;SAMPLE_INVOICE_URL&quot;]}],
+)
+for item in operation.result().contents:
+    print(item.fields)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/2-documents">Microsoft Learn の参照元<span class="visually-hidden"> · スキーマとアナライザーで文書を分析する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">音声・動画から構造化データを作る</h2>
+<p>通話の分析では文字起こしだけでなく、問い合わせの理由、対応、次の行動などを抽出できます。動画では発話に加え、場面、映像上のテキスト、製品の登場区間などを、目的に合わせて調べます。時刻や位置を持つ結果が必要なら、元のメディアと照合します。</p>
+<p>クライアントでは認証した Azure Content Understanding の SDK で、対象メディアを扱えるアナライザーと入力を指定します。begin_analyze で処理を開始して完了を待ち、結果のコンテンツとフィールドを読みます。空欄、型の誤り、重要な値の矛盾を検出し、原文に戻れるようにします。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/3-audio-video">Microsoft Learn の参照元<span class="visually-hidden"> · 音声・動画から構造化データを作る</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">演習</h2>
+<p>Content Understanding のプレイグラウンドから文書や録音を分析し、クライアントで結果を扱います。</p>
+<ol class="lab-steps"><li>請求書等をサンプルとして選び、既成のアナライザーで出力される文字・表・フィールドを見ます。</li><li>日付や金額を追加するなど、目的に合わせたフィールドを定義します。2種類のレイアウトで同じ値が取れるか確認します。</li><li>録音または動画を対象に適したアナライザーで処理し、発話・要約・時点など何が返るかを確認します。</li><li>アプリから分析を開始し、完了を待って結果を受け取ります。値が欠損したレコードが自動登録されない条件を入れ、サンプルで試します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/06a-content-understanding.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/4-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">理解度チェック</h2>
+<div class="unit-question"><p>? フィールドの説明だけ変えたい場合、どの設定を見直しますか。</p><details><summary>解答例を見る</summary><p>スキーマの対象フィールドの説明です。そのスキーマを使うアナライザーで再度分析します。</p></details></div>
+<div class="unit-question"><p>OCR の結果を保存しただけでは自動登録ができない場合、Content Understanding をどう使いますか。</p><details><summary>解答例を見る</summary><p>アナライザーとスキーマで欲しいフィールドを定義し、文書を解析して値を取り出し、型と整合性を検証します。</p></details></div>
+<div class="unit-question"><p>請求書の分析結果を自動登録する前に、何を確認しますか。</p><details><summary>解答例を見る</summary><p>請求番号の有無、日付と金額の型、通貨、明細と総額の整合を確認します。例外は保留して原文を参照します。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/5-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">まとめ</h2>
+<p>スキーマで取得項目を決め、メディアに合うアナライザーで処理します。アプリでは処理の完了を待ち、項目を検証します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/6-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-vision.html">前の章 · 画像を理解し、画像を生成する</a><a href="foundry-iq.html">次の章 · Microsoft Foundry IQ で回答に根拠を持たせる</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

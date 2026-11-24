@@ -15,22 +15,66 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>問い合わせ</li><li>内容を判定</li><li>担当部署に振り分け</li></ol></figure>
-<article>
-<h2>入力と出力から考える</h2>
-<p>機械学習では、過去のデータから規則性を学び、新しい入力に対して分類や予測を行います。たとえば、過去の問い合わせと担当部署の組から、次の問い合わせの振り分け先を予測できます。AI の機能を選ぶときは、最初に使える入力と必要な出力を書き出します。</p>
-<h2>生成 AI とエージェント</h2>
-<p>生成 AI は指示に応じて文章や画像などを作ります。エージェントはモデルに指示とツールを組み合わせ、必要なときに検索や外部機能の呼び出しを行います。返信案を作る場合と、発送状況を調べて返信する場合では、後者に配送データへアクセスする仕組みが必要です。</p>
-<h2>テキスト・音声・画像・書類</h2>
-<p>文章には感情分析や固有表現抽出を、音声には認識と合成を、画像には分類や物体検出を使えます。書類から品名や金額を表に整理するなら情報抽出です。1つのアプリで、電話を文字起こししてから要約するように複数の機能を組み合わせることもあります。</p>
-<h2>責任ある AI</h2>
-<p>公平性は特定の集団に誤りが偏らないか、信頼性と安全性は故障時も危害を抑えられるかに関わります。プライバシーとセキュリティはデータやアクセスの保護、包摂性は多様な利用者が使える設計に関わります。透明性のために機能と限界を知らせ、説明責任のために判断や問題対応を担う人を決めます。</p>
-<h2>ミニ演習</h2>
-<p>留守電を文字にし、返金依頼かどうか判定する機能を考えてください。どの処理を順に使いますか。</p>
-<details><summary>解答例を見る</summary><p>音声認識で文字にし、テキスト分類で返金依頼か判定します。認識に失敗した例は人が確認できるようにします。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/7b-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">AI の仕事を入出力で見分ける</a></li><li><a href="#unit-2">生成 AI とエージェント</a></li><li><a href="#unit-3">テキストと自然言語</a></li><li><a href="#unit-4">音声</a></li><li><a href="#unit-5">コンピューター ビジョン</a></li><li><a href="#unit-6">情報抽出</a></li><li><a href="#unit-7">責任ある AI</a></li><li><a href="#unit-8">演習</a></li><li><a href="#unit-9">理解度チェック</a></li><li><a href="#unit-10">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">AI の仕事を入出力で見分ける</h2>
+<p>人工知能は、知覚、言語理解、推論など、人が知的活動として行う仕事をコンピューターで扱う技術の総称です。機械学習では、例から規則性を学ぶ訓練と、その結果を使って新しい入力を処理する推論を区別します。過去の問い合わせと担当部署を使ってモデルを訓練し、新しい問い合わせを振り分けるのが一例です。</p>
+<p>AI ソリューションを設計するときは、利用できる入力と必要な出力を書き出します。問い合わせの「担当部署を決める」なら分類、「返信案を書く」なら生成、「注文日時と注文番号を取り出す」なら情報抽出です。同じ文章でも目的によって必要な機能が変わります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · AI の仕事を入出力で見分ける</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">生成 AI とエージェント</h2>
+<p>生成 AI は、訓練で学んだパターンと入力された指示から、新しいテキスト、画像、音声などを作ります。文章用の大規模言語モデル（LLM）は入力をトークンに分け、その続きに来るトークンを繰り返し選択します。マルチモーダル モデルは、構成に応じて文章、画像、音声など複数の形式を扱います。</p>
+<p>エージェントでは、モデルに役割、指示、利用できるツールを与えます。返信の文章を整えるだけなら生成モデルで足ります。実際の配送状況を調べて返信するなら、エージェントが注文番号を渡して配送照会を呼び出し、その結果を受けて回答します。検索や操作のアクセス権は必要な範囲に絞ります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/2-generative-ai">Microsoft Learn の参照元<span class="visually-hidden"> · 生成 AI とエージェント</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">テキストと自然言語</h2>
+<p>自然言語処理（NLP）は、人が使う言葉をコンピューターで扱います。「梱包は丁寧だったが到着が遅い」から話題を拾うならキーフレーズ抽出、会社名や日付を見つけるなら固有表現認識、梱包と配送への評価を知るなら感情分析を使います。長文の要点を短くするなら要約、別の言語で伝えるなら翻訳です。</p>
+<p>自然言語では同じ語でも文脈で意味が変わります。「軽い」は製品レビューでは重量への評価、障害報告では深刻さを指すかもしれません。対象と評価をセットで確認すると、単語だけで集計したときの誤読を減らせます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/5-natural-language-processing">Microsoft Learn の参照元<span class="visually-hidden"> · テキストと自然言語</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">音声</h2>
+<p>音声認識は録音やマイクの入力を文字に変換します。文字起こしやライブ字幕に使えます。音声合成は文字列を発話に変換し、読み上げや自動応答に使えます。英語で話された内容を日本語で案内するには、認識・翻訳・合成を組み合わせます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/4-speech">Microsoft Learn の参照元<span class="visually-hidden"> · 音声</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">コンピューター ビジョン</h2>
+<p>コンピューター ビジョンは、画像や動画を数値として処理して特徴を見つけます。分類では画像全体にラベルを付け、物体検出では位置まで得ます。セグメンテーションでは画素単位の領域を求め、OCR では文字を読み取ります。道路画像の分類、棚の商品数の計測、背景の切り分け、値札の読み取りは、それぞれ別の処理です。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/3-computer-vision">Microsoft Learn の参照元<span class="visually-hidden"> · コンピューター ビジョン</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">情報抽出</h2>
+<p>情報抽出は、文書、画像、録音、動画に含まれる内容を、後で利用できる項目に整理します。請求書なら請求番号と合計金額を抽出し、通話なら文字起こしから問い合わせの理由と次の対応を抽出します。OCR が取り出す文字列に加え、前後のラベルや表の位置を使って意味を付けます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/6-extract-insights">Microsoft Learn の参照元<span class="visually-hidden"> · 情報抽出</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">責任ある AI</h2>
+<p>公平性は特定の集団に誤りが偏らないか、信頼性と安全性は誤作動時にも被害を抑えられるかを問います。プライバシーとセキュリティのために個人情報の収集・保存を見直し、アクセスを管理します。包摂性のために字幕やキーボード操作など、使い方の選択肢を用意します。</p>
+<p>透明性のため、利用者に AI の関与と限界を伝えます。説明責任のため、問題の調査と是正を担当する人を決めます。たとえば音声窓口なら、話し方の異なる利用者で認識精度を測り、認識が続けて失敗した場合に担当者へ切り替えられるようにします。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/7-responsible-ai">Microsoft Learn の参照元<span class="visually-hidden"> · 責任ある AI</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-8" aria-labelledby="unit-title-8">
+<h2 id="unit-title-8">演習</h2>
+<p>ブラウザーで動く公式ラボの Computing History エージェントを開き、AI の代表的な仕事を順に確認します。</p>
+<ol class="lab-steps"><li>コンピューター史の質問をし、生成された説明を観察します。年号などの事実は資料と照合します。</li><li>同じ質問を、ツールが使える状態でもう一度行い、外部の結果が回答に使われたかを確認します。</li><li>短い説明を渡して文章の分析を試し、続いて音声入力・読み上げ、画像の説明、画像からの情報抽出を試します。各処理の入力と出力を表に記録します。</li><li>ラボが用意した安全機能の例を確認し、応答が制限されたときに利用者に何が伝わるかを記録します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-concepts/Instructions/exercises/00-ai-workloads.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/7b-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-9" aria-labelledby="unit-title-9">
+<h2 id="unit-title-9">理解度チェック</h2>
+<div class="unit-question"><p>? 本文の「梱包は丁寧だったが到着が遅い」から、感情分析と情報抽出では何が返りますか。</p><details><summary>解答例を見る</summary><p>感情分析は梱包に好意的、配送に否定的という評価を返せます。情報抽出なら、用途に応じて評価対象や具体的な記述を構造化した項目として返します。</p></details></div>
+<div class="unit-question"><p>ニュースの見出し案をいくつか作る場合と、倉庫の在庫を照会してから返答する場合では、どんな構成にしますか。</p><details><summary>解答例を見る</summary><p>見出し案は生成モデルで作れます。在庫照会はエージェントに閲覧用ツールを与え、確認した在庫に基づいて返答させます。</p></details></div>
+<div class="unit-question"><p>受信したメールを音声で聞かせるには、何を使いますか。</p><details><summary>解答例を見る</summary><p>文面を読み上げに変える音声合成です。</p></details></div>
+<div class="unit-question"><p>留守電を文字にし、返金依頼かどうか判定する機能を考えてください。どの処理を順に使いますか。</p><details><summary>解答例を見る</summary><p>音声認識で文字にし、テキスト分類で返金依頼か判定します。認識に失敗した例は人が確認できるようにします。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/8-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-10" aria-labelledby="unit-title-10">
+<h2 id="unit-title-10">まとめ</h2>
+<p>使う AI の機能は入力と必要な出力から選びます。複数の機能を組み合わせる場合も、誤りを検出し、利用者と担当者が対処できるようにします。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/9-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="generative-ai.html">次の章 · 生成 AI と AI エージェント</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

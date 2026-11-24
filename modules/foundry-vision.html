@@ -15,20 +15,73 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>画像＋質問</li><li>内容を説明 ／ テキストの指示</li><li>新しい画像・動画</li></ol></figure>
-<article>
-<h2>画像とテキストを入力する</h2>
-<p>画像入力に対応したモデルをデプロイし、プレイグラウンドで画像と質問を送ります。「この画像を説明して」と「右側のラベルを読み取って」を比べると、指示の粒度で結果が変わることが分かります。Python からは API が要求する形式で画像と文章を同じ入力に含め、返されたテキストを表示します。</p>
-<h2>画像を生成する</h2>
-<p>画像生成モデルを選び、被写体、構図、背景、出力サイズなどを指定します。出力は API に応じて画像データや取得先として返ります。「商品の配置は同じで背景だけ変更」など、比較したい条件を一度に一つ変えると差を見やすくなります。</p>
-<h2>動画を生成する</h2>
-<p>動画を扱えるモデルには、対応していれば場面、動き、長さ、画角などを指定できます。動画生成は要求を送って後から結果を取得する方式の場合があるため、ステータスと完了後の出力取得を分けて扱います。モデルとリージョンの提供状況は演習で確認します。</p>
-<h2>ミニ演習</h2>
-<p>棚に写った商品を説明する場合と、棚を使った新しいイメージ画像が欲しい場合で、モデルをどう選びますか。</p>
-<details><summary>解答例を見る</summary><p>前者は画像を入力できるマルチモーダル モデル、後者は画像生成に対応したモデルを選びます。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/5-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">分析と生成でモデルを選ぶ</a></li><li><a href="#unit-2">マルチモーダル モデルで画像を分析する</a></li><li><a href="#unit-3">画像生成モデルを使う</a></li><li><a href="#unit-4">動画生成モデルを使う</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">分析と生成でモデルを選ぶ</h2>
+<p>画像と文章を入力して説明を返すモデル、指示から画像を生成するモデル、動画を生成するモデルでは出力が異なります。必要な入力形式と出力、対応するモデルのデプロイ、出力の検証方法を先に決めます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 分析と生成でモデルを選ぶ</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">マルチモーダル モデルで画像を分析する</h2>
+<p>画像入力に対応するモデルをデプロイして、Foundry のプレイグラウンドで画像と指示を送ります。「画像を説明して」と「写真にある案内の文字を挙げて」を比べると、出力に必要な指示の違いが分かります。見えない部分を推測していないか、画像と回答を照らし合わせます。</p>
+<p>Python からは Responses API のメッセージにテキストと画像を含めます。画像には API が受け付ける URL やデータ形式を使い、返った文章を取得します。ファイル形式、サイズ、認証、モデルが画像入力に対応しているかを順に確認すると、失敗を切り分けやすくなります。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<pre><code># pip install openai
+import base64
+import os
+from pathlib import Path
+from openai import OpenAI
+
+client = OpenAI(
+    base_url=os.environ[&quot;AZURE_OPENAI_V1_URL&quot;],
+    api_key=os.environ[&quot;AZURE_OPENAI_KEY&quot;],
+)
+photo = base64.b64encode(Path(&quot;sample.jpg&quot;).read_bytes()).decode(&quot;ascii&quot;)
+response = client.responses.create(
+    model=os.environ[&quot;VISION_DEPLOYMENT&quot;],
+    input=[{
+        &quot;role&quot;: &quot;user&quot;,
+        &quot;content&quot;: [
+            {&quot;type&quot;: &quot;input_text&quot;, &quot;text&quot;: &quot;写真に見える看板の文字を挙げてください。&quot;},
+            {&quot;type&quot;: &quot;input_image&quot;, &quot;image_url&quot;: &quot;data:image/jpeg;base64,&quot; + photo},
+        ],
+    }],
+)
+print(response.output_text)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/2-vision-enabled-models">Microsoft Learn の参照元<span class="visually-hidden"> · マルチモーダル モデルで画像を分析する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">画像生成モデルを使う</h2>
+<p>画像生成のプレイグラウンドでは、被写体、視点、背景などを指定します。クライアントから呼び出すときは、使うデプロイと API に応じて出力サイズや品質を指定し、画像データを受け取って表示または保存します。構成によって、画像生成用の呼び出しや Responses API の画像生成ツールを使います。</p>
+<p>入力を一つずつ変え、意図した変更を比較します。指定した文字、寸法、図の正確さが重要なら、生成された画像を目視や別の方法で検証します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/3-image-generation">Microsoft Learn の参照元<span class="visually-hidden"> · 画像生成モデルを使う</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">動画生成モデルを使う</h2>
+<p>テキストから動画を生成する場合は、場面に加えて動きや順序を指定します。プレイグラウンドで動きや構図を確認し、API からは出力時間や解像度など対応するオプションを指定します。</p>
+<p>REST API が非同期ジョブを使う場合は、動画ジョブを作って ID を受け取り、その ID でステータスを確認し、成功したらコンテンツをダウンロードします。失敗やタイムアウト時の扱いと、生成にかかる時間・費用も考慮します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/4-video-generation">Microsoft Learn の参照元<span class="visually-hidden"> · 動画生成モデルを使う</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>Foundry のプレイグラウンドで画像分析と生成を比べ、アプリで出力を受け取ります。</p>
+<ol class="lab-steps"><li>画像入力可能なモデルにサンプル画像と質問を送ります。回答が写真のどの箇所に対応するかを確認します。</li><li>画像生成用のモデルを選び、「窓辺に白い鉢植えを配置した写真」のような指示で出力し、背景や視点を一つ変更して比べます。</li><li>対応する構成があれば動画生成を試します。API で行う場合はジョブの ID を記録し、完了を確認して出力を取得します。</li><li>Python のクライアントでは画像入力とテキストを渡して返った文章を表示します。生成画像では、返却された画像データを保存し意図したサイズか確認します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/05a-image-analysis.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/5-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? 動画の API がジョブ ID を返した時点で、動画ファイルを取得できますか。</p><details><summary>解答例を見る</summary><p>非同期方式なら、ID で状態を確認し、成功になってから出力を取得します。</p></details></div>
+<div class="unit-question"><p>Python から「写真のレイアウトを説明して」と依頼するとき、リクエストに何を含めますか。</p><details><summary>解答例を見る</summary><p>画像入力に対応するデプロイ名、質問のテキスト、対応形式の画像を含めます。</p></details></div>
+<div class="unit-question"><p>棚に写った商品を説明する場合と、棚を使った新しいイメージ画像が欲しい場合で、モデルをどう選びますか。</p><details><summary>解答例を見る</summary><p>前者は画像を入力できるマルチモーダル モデル、後者は画像生成に対応したモデルを選びます。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>画像を理解するモデルと、画像・動画を作るモデルで API や出力形式が変わります。生成された内容まで目で確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-speech.html">前の章 · 音声を扱う</a><a href="foundry-extraction.html">次の章 · 文書・画像・音声・動画から情報を取り出す</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

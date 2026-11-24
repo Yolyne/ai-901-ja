@@ -15,22 +15,51 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>プロンプト</li><li>トークン化</li><li>次のトークンを予測</li></ol></figure>
-<article>
-<h2>大規模言語モデル</h2>
-<p>LLM はテキストをトークンに分けて処理します。トークンは単語全体やその一部などです。モデルはこれまでの文脈を参照しながら、その後に来るトークンを繰り返し選ぶことで文章を生成します。コンテキスト ウィンドウは一度に扱えるトークン量に関係し、長い入力や会話履歴では上限を考慮します。</p>
-<h2>プロンプトで仕事を伝える</h2>
-<p>「要約して」に、対象、目的、制約、期待する形式を足してみましょう。「次の議事録を読み、決定事項と担当者を表にしてください。担当者が不明なら『未定』と書いてください」と指定すると、出力をチェックしやすくなります。回答形式を見せたい場合は短い入出力例を添えます。</p>
-<h2>エージェントのツール</h2>
-<p>注文状況を確認するエージェントには、注文番号を入力として受け取る参照ツールを渡します。モデルが入力を組み立て、実行環境がツールを呼び出し、その結果をモデルに戻します。閲覧と更新の権限を分け、実際に注文を変更する操作は確認を挟みます。</p>
-<h2>出力を点検する</h2>
-<p>モデルは根拠のない回答を自然な文章で出すことがあります。事実が必要な質問では資料を渡すか検索させ、出典と照らし合わせます。プロンプトを変更するときは、代表例と例外例を固定して変更前後を比較します。</p>
-<h2>ミニ演習</h2>
-<p>「この議事録を整理して」を、毎回同じ形式で返るように書き換えてください。</p>
-<details><summary>解答例を見る</summary><p>「決定事項、担当者、期限を表にしてください。記載がない欄は『不明』とし、推測で埋めないでください。」</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/7a-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">生成 AI が得意な仕事</a></li><li><a href="#unit-2">大規模言語モデル（LLM）</a></li><li><a href="#unit-3">プロンプトと会話履歴</a></li><li><a href="#unit-4">AI エージェント</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">生成 AI が得意な仕事</h2>
+<p>生成 AI は文章の下書き、要約、質問への回答、プログラムや画像の作成に利用できます。内容に似た例を確率的に生成できるため、表現の幅が広がります。出典の確認、計算、最新の業務データの参照は、入力する根拠や外部ツールの使い方まで設計します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 生成 AI が得意な仕事</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">大規模言語モデル（LLM）</h2>
+<p>トークナイザーは入力を単語、語の一部、記号などのトークンに分け、モデルが扱う ID に変換します。同じ文字数でも言語や記号によってトークン数は変わります。コンテキスト ウィンドウは、指示、過去のやり取り、参照資料、生成する回答を扱える長さに関わります。</p>
+<p>Transformer はトークンをベクトルとして表し、位置の情報を加えます。アテンションでは文脈中のどのトークンを重視するかを計算し、文脈付きの表現を作ります。「橋を渡る」と「箸を持つ」では、同じ読みでも周囲の語から別の意味を扱えます。</p>
+<p>生成時は、入力の先に各候補トークンが続く確率を計算して、選んだトークンを追記します。それを繰り返して回答ができあがります。温度を調整できるモデルでは、高くすると候補の選び方が広がる傾向があります。温度を下げても事実の正しさは検証が必要です。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/3-language-models">Microsoft Learn の参照元<span class="visually-hidden"> · 大規模言語モデル（LLM）</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">プロンプトと会話履歴</h2>
+<p>システム側の指示には役割、回答形式、利用上のルールを置き、ユーザー側の入力にはその時点の依頼を置きます。会話履歴を文脈として渡すと、先の発言を受けた質問を解釈できます。履歴が長くなれば、必要な情報を選ぶか要約して文脈を管理します。</p>
+<p>「議事録を整理して」に、「決定事項・担当者・期限を表にする。記載がなければ不明とする」を足すと、確認できる結果になります。例を添えると形式の意図も伝わります。社内規程などモデルが持たない情報が必要なら、検索して得た該当箇所を入力に加える RAG が役立ちます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/6-writing-prompts">Microsoft Learn の参照元<span class="visually-hidden"> · プロンプトと会話履歴</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">AI エージェント</h2>
+<p>エージェントはモデル、指示、ツール、必要に応じた知識源や会話状態で構成します。問い合わせの種類に応じてツールを選び、引数を組み立て、実行結果を使って回答します。注文照会のツールには注文番号を渡し、番号が欠けていれば利用者に尋ねるよう指示します。</p>
+<p>複数のエージェントで役割を分ける方法もあります。たとえば照会と回答レビューを別の役割にします。分担すると処理が複雑になるため、どの役割が判断し、失敗をどこで検出するかを決めてから導入します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/7-agents">Microsoft Learn の参照元<span class="visually-hidden"> · AI エージェント</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>ブラウザーのチャット実習で、会話履歴、指示、ツール、トークン数の違いを確認します。</p>
+<ol class="lab-steps"><li>同じ会話の中で、好きな食品を伝えたあと「それを使った献立を一つ」と尋ねます。新しい会話で後半の質問だけを送り、回答を比較します。</li><li>「日本語で3項目、各項目20字以内」といったルールを説明欄に追加し、同じ入力に対する出力形式を比べます。</li><li>ラボの検索ツールを有効にし、日付に依存する質問を試します。検索を使った場合に出典を確認できるか、使用トークンがどう変化するかを記録します。</li><li>クライアント コードを表示し、指示、ユーザーの入力、返されたテキストと使ったツールを、どの処理が渡すか追います。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-concepts/Instructions/exercises/02-generative-ai.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/7a-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? モデルが社内規程に従って返答するには、指示を変えるだけで十分ですか。</p><details><summary>解答例を見る</summary><p>規程の本文を入力に含めるか、検索して関連箇所を渡す必要があります。指示には、参照資料に従うことも書けます。</p></details></div>
+<div class="unit-question"><p>文字列はモデルにどんな順番で渡され、アテンションの計算では何が起こりますか。</p><details><summary>解答例を見る</summary><p>トークンに分割して ID にし、埋め込みと位置情報からベクトルで表します。アテンションは周囲のどのトークンが重要かを計算します。</p></details></div>
+<div class="unit-question"><p>会話アプリで毎回「回答は一つの表にする」を守らせたいとき、どこに指示を置きますか。</p><details><summary>解答例を見る</summary><p>アプリが毎回適用するシステム側の指示に置きます。具体的な質問はユーザー入力に置きます。</p></details></div>
+<div class="unit-question"><p>「この議事録を整理して」を、毎回同じ形式で返るように書き換えてください。</p><details><summary>解答例を見る</summary><p>「決定事項、担当者、期限を表にしてください。記載がない欄は『不明』とし、推測で埋めないでください。」</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/8-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>LLM はトークンから続きを生成します。明確な指示と資料で応答を整え、ツールが必要な仕事はエージェントで扱います。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/9-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="ai-overview.html">前の章 · AI の全体像</a><a href="text-analysis.html">次の章 · 自然言語処理とテキスト分析</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

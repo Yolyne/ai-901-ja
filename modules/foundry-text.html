@@ -15,20 +15,69 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>レビュー</li><li>分析方法を選ぶ</li><li>結果を集計・表示</li></ol></figure>
-<article>
-<h2>Foundry で使える分析方法</h2>
-<p>汎用モデルには「不満点を短くまとめ、根拠の文も添える」のように自由な指示を渡せます。Azure Language には、感情、キーフレーズ、言語、固有表現などの機能があります。試す場合は同じレビューを入力して、どの結果が後続処理に必要か比較します。</p>
-<h2>Python クライアントを作る</h2>
-<p>演習で指定される Azure Language のエンドポイントと認証方式を環境に設定します。SDK のテキスト分析クライアントに文章のリストを渡し、文書ごとの結果またはエラーを受け取ります。集計にはラベルに加えて入力の ID を保存し、エラーや再試行も追えるようにします。</p>
-<h2>エージェントと組み合わせる</h2>
-<p>エージェントから言語分析を呼び出して使う場合は、ツールで受け取る文章と返却する項目を定義します。「何が不満か」を聞いたときに結果を読み取って説明するか、文章が空なら適切に聞き返すかをポータルで試します。</p>
-<h2>ミニ演習</h2>
-<p>100件の口コミを配送・梱包別に集計したい場合、どんな出力が必要ですか。</p>
-<details><summary>解答例を見る</summary><p>口コミ ID、評価対象、感情ラベルを組で出し、複数の評価対象が含まれる場合は個別に記録します。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/5-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">分析結果の使い道を決める</a></li><li><a href="#unit-2">汎用モデルと Azure Language でテキストを分析する</a></li><li><a href="#unit-3">Python のクライアントを作る</a></li><li><a href="#unit-4">MCP を使ってエージェントに分析ツールを追加する</a></li><li><a href="#unit-5">演習</a></li><li><a href="#unit-6">理解度チェック</a></li><li><a href="#unit-7">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">分析結果の使い道を決める</h2>
+<p>問い合わせにラベルを付ける、個人情報を隠す、レビューで不満の対象を抽出するなど、目的を定めます。自由な指示で柔軟に分析する汎用モデルと、専用機能を決まった形式で提供する Azure Language を比較します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 分析結果の使い道を決める</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">汎用モデルと Azure Language でテキストを分析する</h2>
+<p>汎用モデルには、キーフレーズ、固有表現、感情とその対象を指定の形式で返すよう依頼できます。たとえば「配達は速かったが冷凍品が解けていた」では、配送速度と温度管理を別の評価対象にします。利用条件に合う場合は構造化出力を指定し、受け取った型を検証します。</p>
+<p>Azure Language には言語検出、固有表現認識、感情分析、キーフレーズ抽出、個人を特定できる情報（PII）の検出などがあります。言語検出で入力に合う処理を選び、PII 検出のマスク済み結果はログ共有などに使えます。検出漏れの可能性は代表例で確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/2-azure-language">Microsoft Learn の参照元<span class="visually-hidden"> · 汎用モデルと Azure Language でテキストを分析する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">Python のクライアントを作る</h2>
+<p>汎用モデルの場合は OpenAI Python ライブラリでクライアントを作り、Responses API に対象テキストと出力条件を渡します。エンドポイント、認証設定、デプロイ名は環境で設定し、秘密鍵をリポジトリに置かないようにします。</p>
+<p>Azure Language では azure-ai-textanalytics の TextAnalyticsClient を構成し、たとえば detect_language や recognize_pii_entities に文字列のリストを渡します。文書ごとの結果やエラーを調べ、検出ラベル、信頼度、マスク済みテキストなど必要な値を読みます。複数件を処理するなら文書 ID を結果と一緒に扱います。</p>
+<h3>Python の実装例</h3>
+<p>コードに出てくる環境変数を設定し、指定のライブラリをインストールして実行します。</p>
+<pre><code># pip install azure-ai-textanalytics
+import os
+from azure.ai.textanalytics import TextAnalyticsClient
+from azure.core.credentials import AzureKeyCredential
+
+client = TextAnalyticsClient(
+    endpoint=os.environ[&quot;AZURE_LANGUAGE_ENDPOINT&quot;],
+    credential=AzureKeyCredential(os.environ[&quot;AZURE_LANGUAGE_KEY&quot;]),
+)
+documents = [&quot;梱包はきれいでしたが、配達が遅かったです。&quot;]
+for result in client.analyze_sentiment(documents, show_opinion_mining=True):
+    if result.is_error:
+        print(result.error.code)
+        continue
+    print(&quot;文書全体:&quot;, result.sentiment)
+    for sentence in result.sentences:
+        for opinion in sentence.mined_opinions:
+            print(opinion.target.text, opinion.target.sentiment)</code></pre>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/3-language-sdk">Microsoft Learn の参照元<span class="visually-hidden"> · Python のクライアントを作る</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">MCP を使ってエージェントに分析ツールを追加する</h2>
+<p>Model Context Protocol（MCP）は、エージェントが外部ツールの定義を知り、決められた入力で呼び出すための仕組みです。Azure Language の MCP サーバーをツールとして接続できる構成では、利用する分析機能と認証、アクセス範囲を設定します。</p>
+<p>ポータルでエージェントにテキスト分析を依頼し、適切なツールが選ばれたか、結果を正しく説明したかを確認します。入力不足やツールが利用できないときの応答も試します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/4-language-mcp">Microsoft Learn の参照元<span class="visually-hidden"> · MCP を使ってエージェントに分析ツールを追加する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">演習</h2>
+<p>Foundry で文章を分析し、同じ目的を汎用モデル、Azure Language、エージェントで試します。</p>
+<ol class="lab-steps"><li>チャットでレビューの評価対象、評価、根拠を JSON 形式で返すように指示し、複数の意見がある文を試します。</li><li>Python で汎用モデルを呼び、出力が期待する構造かを確かめます。続けて Azure Language で同じ文を分析し、言語検出や感情など返ってくる専用項目と比べます。</li><li>実習で案内されている Azure Language の機能をエージェントにつなぎます。テキストが空のとき、明確な感情語がないとき、複数の言語が混ざるときを試します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/03b-text-analysis.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/5-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">理解度チェック</h2>
+<div class="unit-question"><p>? PII 検出済みのテキストを共有する前に何を確かめますか。</p><details><summary>解答例を見る</summary><p>意図した種類の個人情報が伏せられ、別の形式の個人情報が取り残されていないかを確認します。</p></details></div>
+<div class="unit-question"><p>決まった形式で文章の言語と信頼度を取得したいときに、どんなクライアントを作りますか。</p><details><summary>解答例を見る</summary><p>Azure Language の認証付き TextAnalyticsClient を作り、言語検出を呼び出します。</p></details></div>
+<div class="unit-question"><p>100件の口コミを配送・梱包別に集計したい場合、どんな出力が必要ですか。</p><details><summary>解答例を見る</summary><p>口コミ ID、評価対象、感情ラベルを組で出し、複数の評価対象が含まれる場合は個別に記録します。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">まとめ</h2>
+<p>汎用モデルは指示で分析を切り替えられます。Azure Language は専用の分析機能を提供し、クライアントやエージェントから利用できます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-agents.html">前の章 · 生成 AI とエージェントを試す</a><a href="foundry-speech.html">次の章 · 音声を扱う</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

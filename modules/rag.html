@@ -15,22 +15,55 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>質問</li><li>関連箇所を検索</li><li>参照情報を基に回答</li></ol></figure>
-<article>
-<h2>検索拡張生成の流れ</h2>
-<p>RAG では質問を受けてから関連資料を探し、検索結果を質問と一緒にモデルへ渡します。社内規程のように更新される資料は、検索対象を更新することで新しい情報を参照できます。</p>
-<h2>資料の分割と索引</h2>
-<p>長い文書は節ごとに切り出し、タイトル、出典、更新日などを付けて索引に登録します。区切りが細かすぎると文脈を失い、大きすぎると不要な情報で入力が膨らむため、質問に答えられる単位で試します。</p>
-<h2>検索と回答を分けて評価する</h2>
-<p>キーワード検索は固有の型番などに強く、ベクトル検索は言い換えを拾えます。併用する方法もあります。誤答が出たら、先に正しい資料が検索されたかを確かめ、その後でモデルが資料を正しく読んだかを調べます。</p>
-<h2>根拠・更新・権限</h2>
-<p>回答に参照先を付け、資料不足なら不足と伝えます。古い規程と新しい規程が混在するなら適用日を確認します。利用者が閲覧できる資料だけを回答の入力に使うよう、検索でも権限を扱います。</p>
-<h2>ミニ演習</h2>
-<p>RAG が古い出張日当を返しました。最初に確認するものは何ですか。</p>
-<details><summary>解答例を見る</summary><p>検索結果の文書名・版・更新日です。現行の規程を取れていれば、次に回答がその箇所に沿っているかを確認します。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/6-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">RAG が役立つ場面</a></li><li><a href="#unit-2">検索で文脈を補う</a></li><li><a href="#unit-3">データを準備する</a></li><li><a href="#unit-4">検索結果を使って回答する</a></li><li><a href="#unit-5">RAG の評価</a></li><li><a href="#unit-6">演習</a></li><li><a href="#unit-7">理解度チェック</a></li><li><a href="#unit-8">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">RAG が役立つ場面</h2>
+<p>生成モデルは、社内規程や今日更新された情報を訓練時に学んでいないことがあります。関連資料から根拠を取り、モデルに渡して回答させるのが検索拡張生成（RAG）です。モデルの再訓練を伴わずに、参照資料を更新できます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · RAG が役立つ場面</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">検索で文脈を補う</h2>
+<p>RAG は検索、入力への追加、回答生成という流れです。たとえば国内出張の日当について質問されたら、最初に規程を検索し、対象者、地域、適用日の揃った箇所を質問と一緒にモデルに渡します。回答には該当箇所への参照を添えます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/2-understand-rag">Microsoft Learn の参照元<span class="visually-hidden"> · 検索で文脈を補う</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">データを準備する</h2>
+<p>資料を選び、重複や古い版、読み取れない箇所を整理します。ページ単位や見出し単位など、意味のまとまりで分割し、文書名や日付、URL、アクセス権を紐づけます。節が分割される場合は隣接する範囲を一部重ねる方法があります。</p>
+<p>各断片を埋め込みモデルでベクトルに変換し、検索用の索引に登録します。キーワード検索も使うなら元のテキストも保存します。変更時は対応する断片と索引を更新し、削除された文書が検索結果に残らないようにします。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/3-prepare-data">Microsoft Learn の参照元<span class="visually-hidden"> · データを準備する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">検索結果を使って回答する</h2>
+<p>検索には文字の一致を重視する方法、埋め込みの類似度を使う方法、その両方を使うハイブリッド検索があります。質問と利用者の権限に合う資料に絞り、必要に応じて関連度で並べ替えます。</p>
+<p>選んだ断片を出典付きでプロンプトに入れ、資料にある内容を使うこと、根拠が足りなければ明示することを指示します。参照元が同じでも版が違えば結論は変わるため、引用先と適用日を確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/4-retrieve-generate">Microsoft Learn の参照元<span class="visually-hidden"> · 検索結果を使って回答する</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">RAG の評価</h2>
+<p>検索の評価では、期待した根拠が上位の候補に含まれたかを確認します。回答の評価では、質問に関連しているか、資料に裏付けられているか、必要な点が揃っているかを確認します。誤りが見つかったら、検索と生成のどこで失敗したか切り分けます。</p>
+<p>候補を増やすと見落としが減ることがありますが、処理時間やトークンが増えます。正答あり、正答なし、版違い、権限の異なる利用者の例を用意し、回答品質・応答時間・費用を比較します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/5-evaluate-rag">Microsoft Learn の参照元<span class="visually-hidden"> · RAG の評価</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">演習</h2>
+<p>チャット実習で、モデルに質問だけを渡す場合と、資料を検索させる場合を比較します。</p>
+<ol class="lab-steps"><li>ラボで指定される資料に答えが書いてある質問を、ナレッジ ソースを付けずに送ります。回答を記録します。</li><li>同じ資料をナレッジ ソースとして追加し、同じ質問を送ります。取得した箇所と回答の根拠を確かめます。</li><li>資料に答えがない質問や、質問を言い換えた例も試し、正しい箇所を取得できたかと、回答が根拠に沿ったかを別々に判定します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-concepts/Instructions/exercises/07-explore-rag.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/6-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">理解度チェック</h2>
+<div class="unit-question"><p>? 今の規程は上位5件に入っていたのに、回答は古い版を引用しました。何を改善できますか。</p><details><summary>解答例を見る</summary><p>検索結果に適用日や版を付けて古い版を除外するか優先順位を下げ、根拠として使う版を指示します。</p></details></div>
+<div class="unit-question"><p>新しく差し替えた規程の PDF が長い場合、どんな単位で索引に入れますか。</p><details><summary>解答例を見る</summary><p>見出しや節など意味のまとまりに分け、各断片に出典と適用日を付けます。必要に応じて埋め込みも保存します。</p></details></div>
+<div class="unit-question"><p>言い回しが異なる同じ内容を候補として拾うにはどの検索が向いていますか。</p><details><summary>解答例を見る</summary><p>埋め込みの類似度を使うベクトル検索です。型番のような完全一致にはキーワード検索も組み合わせられます。</p></details></div>
+<div class="unit-question"><p>RAG が古い出張日当を返しました。最初に確認するものは何ですか。</p><details><summary>解答例を見る</summary><p>検索結果の文書名・版・更新日です。現行の規程を取れていれば、次に回答がその箇所に沿っているかを確認します。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/7-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-8" aria-labelledby="unit-title-8">
+<h2 id="unit-title-8">まとめ</h2>
+<p>RAG は断片を索引化し、関連する根拠を検索して生成モデルへ渡します。取得の正しさと回答の根拠を別々に評価します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/8-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="extraction-concepts.html">前の章 · AI を使った情報抽出</a><a href="foundry-basics.html">次の章 · Azure で AI 開発を始める</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

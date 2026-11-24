@@ -15,22 +15,55 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>Azure サブスクリプション</li><li>Foundry プロジェクト</li><li>デプロイ</li><li>アプリ</li></ol></figure>
-<article>
-<h2>Azure のリソース</h2>
-<p>サブスクリプションは課金や利用の境界です。リソース グループで関連リソースをまとめ、リージョンでサービスを配置する場所を選びます。Azure にはコンピューティング、ストレージ、アクセス管理などの機能があり、AI アプリでは通常これらをモデルや AI サービスと組み合わせます。</p>
-<h2>Foundry でモデルを使えるようにする</h2>
-<p>Foundry は、モデル、ツール、エージェントを開発・評価・管理するプラットフォームです。プロジェクトを作り、モデル カタログで用途に合うモデルを確認します。対応する入力形式、デプロイ方式、リージョン、割り当て、費用を見てデプロイし、プレイグラウンドで短い入力を試します。</p>
-<h2>エンドポイントと認証</h2>
-<p>エンドポイントはアプリが要求を送る接続先です。プロジェクトに接続するときとモデル推論を呼ぶときでは、使う URL やクライアントが異なる場合があります。Azure CLI でサインインして開発時の資格情報を使い、本番では環境に合うマネージド ID と権限を設定する方法があります。</p>
-<h2>ポータルで試す</h2>
-<p>公式演習を開き、Azure サブスクリプションと使えるリージョンを確認します。プロジェクトとデプロイを作り、プレイグラウンドで応答を確認します。プロジェクトのエンドポイントとデプロイ名を控え、実習が終わったら演習専用のリソースを整理します。</p>
-<h2>ミニ演習</h2>
-<p>ポータルで動いたモデルを Python から呼ぶために、最低限どの情報を揃えますか。</p>
-<details><summary>解答例を見る</summary><p>利用する API に合ったエンドポイント、デプロイ名、認証方法とアクセス権です。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/6-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">Azure 上で AI を開発する流れ</a></li><li><a href="#unit-2">Azure のリソース構造</a></li><li><a href="#unit-3">AI アプリに必要なサービス</a></li><li><a href="#unit-4">Foundry のモデル、エージェント、ツール、ナレッジ</a></li><li><a href="#unit-5">エンドポイントを使う</a></li><li><a href="#unit-6">演習</a></li><li><a href="#unit-7">理解度チェック</a></li><li><a href="#unit-8">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">Azure 上で AI を開発する流れ</h2>
+<p>Azure はアプリを実行する環境、データを保管する場所、利用者を認証する仕組み、AI モデルなどを提供します。たとえば問い合わせアプリなら、Web アプリで入力を受け、認証済みのバックエンドでモデルを呼び、結果を保存します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · Azure 上で AI を開発する流れ</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">Azure のリソース構造</h2>
+<p>管理グループはサブスクリプションをまとめる単位です。サブスクリプションは利用と課金を管理し、リソース グループには関連するリソースを入れます。リソースはストレージ アカウントや Foundry などの個別のサービスです。リージョンは配置する地理的な場所で、サービスごとの利用可否も確認します。</p>
+<p>Azure portal はこれらの作成、設定、監視を行う画面です。組織では Azure RBAC で役割を割り当て、閲覧や作成ができる範囲を指定します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/2-what-is-azure">Microsoft Learn の参照元<span class="visually-hidden"> · Azure のリソース構造</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">AI アプリに必要なサービス</h2>
+<p>Microsoft Entra ID は認証、ロールは認証された利用者のアクセス制御に使います。ネットワーク制御の必要があれば仮想ネットワークやプライベート接続を検討します。ホスト環境には Web Apps、Functions、コンテナーなどがあり、負荷と実行方法で選択します。</p>
+<p>Blob Storage には画像や音声などのファイルを、業務記録には用途に合うデータベースを使います。検索が必要なら索引を用意します。処理量が増えたときはアプリとモデルの容量を別々に確認します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/3-develop-ai-apps">Microsoft Learn の参照元<span class="visually-hidden"> · AI アプリに必要なサービス</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">Foundry のモデル、エージェント、ツール、ナレッジ</h2>
+<p>Foundry ではモデル カタログからモデルを選び、推論を試します。エージェントにはモデル、役割、必要なツールを設定します。Foundry Tools には言語・音声・情報抽出などの機能があり、ナレッジを使うと組織のデータを応答の根拠にできます。</p>
+<p>Foundry リソースとプロジェクトを作ることで、デプロイ、エージェント、テストなどを開発単位で管理できます。Foundry portal ではモデル選定、デプロイ、プレイグラウンドでの試験、評価を行い、アプリへの組み込みに進みます。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/4-microsoft-foundry">Microsoft Learn の参照元<span class="visually-hidden"> · Foundry のモデル、エージェント、ツール、ナレッジ</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">エンドポイントを使う</h2>
+<p>エンドポイントは API を呼ぶ接続先です。プロジェクトを扱う URL とモデル推論を扱う URL で、用途やクライアントが異なる場合があります。要求の際には、目的に合う URL、デプロイ名やエージェント名、認証と権限を揃えます。</p>
+<p>REST は HTTP で直接呼び出せるインターフェース、SDK はプログラムで扱いやすくするライブラリです。開発環境では Azure CLI のログインを利用できる場合があります。本番ではマネージド ID など実行環境に合った認証と必要なロールを設定します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/5-endpoints">Microsoft Learn の参照元<span class="visually-hidden"> · エンドポイントを使う</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">演習</h2>
+<p>Azure サブスクリプションを用意し、利用許可のあるリージョンと演習専用リソース グループを確認します。</p>
+<ol class="lab-steps"><li>Foundry にサインインしてプロジェクトを作成し、ポータルのプロジェクト一覧で選択します。</li><li>モデル カタログで使えるモデルとデプロイ オプションを確認し、学習用に1つデプロイします。作成したデプロイ名を記録します。</li><li>プレイグラウンドで短いプロンプトを送り、応答を確認します。プロジェクトの概要とモデルの詳細でエンドポイントを確認し、各 URL の用途を言葉にします。</li><li>演習のインターフェースで Foundry リソースのエンドポイントを使用し、生成、文章分析、音声、画像、情報抽出の入出力を比較します。安全機能が応答を制限する例も確認します。</li><li>実習後は、演習のために作成した専用リソースだけを整理します。他で使うリソースは事前に区別します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-fundamentals/Instructions/Exercises/00-explore-foundry.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/6-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">理解度チェック</h2>
+<div class="unit-question"><p>? Azure のリソース グループと Foundry プロジェクトの役割は何ですか。</p><details><summary>解答例を見る</summary><p>リソース グループは Azure の関連リソースをまとめます。Foundry プロジェクトはモデルの利用やエージェント開発を作業単位で管理します。</p></details></div>
+<div class="unit-question"><p>URL は合っているのにクライアントがアクセスできません。どこを確認しますか。</p><details><summary>解答例を見る</summary><p>URL が API の種類に合うことを確認したうえで、資格情報と認証された ID の権限を確認します。</p></details></div>
+<div class="unit-question"><p>ポータルで動いたモデルを Python から呼ぶために、最低限どの情報を揃えますか。</p><details><summary>解答例を見る</summary><p>利用する API に合ったエンドポイント、デプロイ名、認証方法とアクセス権です。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/7-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-8" aria-labelledby="unit-title-8">
+<h2 id="unit-title-8">まとめ</h2>
+<p>Azure ではサブスクリプションとリソースの関係を把握し、Foundry ではプロジェクトとデプロイを準備します。API の用途に合うエンドポイントと認証を使います。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/8-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="rag.html">前の章 · 検索拡張生成（RAG）</a><a href="foundry-agents.html">次の章 · 生成 AI とエージェントを試す</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>

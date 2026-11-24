@@ -15,22 +15,62 @@
 </div></header>
 <main id="main" class="wrap lesson">
 <figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>画像</li><li>ピクセルの配列</li><li>認識結果または生成結果</li></ol></figure>
-<article>
-<h2>分類・検出・セグメンテーション</h2>
-<p>分類は画像全体にラベルを付けます。物体検出は物体の種類と位置を矩形で示します。セグメンテーションは、どのピクセルが対象に属するかを判定します。画像上の文字を読み取るなら OCR です。</p>
-<h2>画像の表現と画像処理</h2>
-<p>カラー画像は例えば赤、緑、青のチャネルに分けられ、各ピクセルを数値で表現できます。リサイズは大きさをそろえ、フィルターは近隣の画素を使ってぼかしたり輪郭を強めたりします。小さな文字が重要な用途では、縮小で情報が失われないかを確認します。</p>
-<h2>CNN と Vision Transformer</h2>
-<p>畳み込みニューラル ネットワーク（CNN）は、局所的な模様を検出するフィルターを学び、層を重ねて複雑な特徴を捉えます。Vision Transformer は画像をパッチに分割して、パッチ間の関係を考慮します。マルチモーダル モデルは画像とテキストを組み合わせ、「写真のどこに傷が見える？」といった質問に答えられます。</p>
-<h2>画像生成</h2>
-<p>生成モデルは、被写体や構図の指示を条件に新しい画像を作ります。拡散モデルでは、ノイズから少しずつ画像を組み立てる過程が使われます。高さや向きなどが厳密に必要なら、生成結果を確認します。</p>
-<h2>ミニ演習</h2>
-<p>棚の写真で商品を個別に数え、値札の文字も読みたい場合、何を組み合わせますか。</p>
-<details><summary>解答例を見る</summary><p>物体検出で商品ごとの位置を得て数えます。値札は OCR に渡して文字を読みます。</p></details>
-<h2>Microsoft Learn で手を動かす</h2>
-<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
-<p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/5b-exercise">この章の公式演習を開く</a></p>
-</article>
+<nav class="unit-toc" aria-label="モジュール内のユニット"><h2>ユニット目次</h2><ol><li><a href="#unit-1">画像を入力とする AI</a></li><li><a href="#unit-2">分類、物体検出、セグメンテーション</a></li><li><a href="#unit-3">ピクセルと画像処理</a></li><li><a href="#unit-4">畳み込みニューラル ネットワーク（CNN）</a></li><li><a href="#unit-5">Vision Transformer とマルチモーダル モデル</a></li><li><a href="#unit-6">画像生成</a></li><li><a href="#unit-7">演習</a></li><li><a href="#unit-8">理解度チェック</a></li><li><a href="#unit-9">まとめ</a></li></ol></nav>
+<article><section class="lesson-unit" id="unit-1" aria-labelledby="unit-title-1">
+<h2 id="unit-title-1">画像を入力とする AI</h2>
+<p>コンピューター ビジョンは、写真や動画から情報を得る技術です。画像にラベルを付ける仕事、対象の場所を見つける仕事、画像と質問を組み合わせて説明する仕事では、必要なデータと評価方法が異なります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/1-introduction">Microsoft Learn の参照元<span class="visually-hidden"> · 画像を入力とする AI</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
+<h2 id="unit-title-2">分類、物体検出、セグメンテーション</h2>
+<p>分類では「室内」「屋外」のように画像全体にラベルを付けます。物体検出では同じ画像にある商品を個別に見つけ、ラベルと場所を矩形で返します。セマンティック セグメンテーションでは、画素ごとに道路や歩道などのクラスを割り当てます。</p>
+<p>文脈を扱う画像分析では、写真から説明文を作ったり、画像について問われた内容に答えたりできます。OCR（光学文字認識）は画像中の文字とその位置を取り出す処理です。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/2-overview">Microsoft Learn の参照元<span class="visually-hidden"> · 分類、物体検出、セグメンテーション</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
+<h2 id="unit-title-3">ピクセルと画像処理</h2>
+<p>画像は縦横に並んだピクセルで表せます。グレースケール画像なら明るさ、RGB 画像なら赤・緑・青それぞれの値を持ちます。リサイズで大きさをそろえ、画素の組み合わせで白黒化や色の変換を行えます。</p>
+<p>画像フィルターでは、小さな行列を画素の上で動かし、重み付き和で新しい画素値を作ります。近傍を平均すればぼけ、隣り合う画素の差を強調すれば輪郭が際立ちます。小さな文字の処理では、縮小やぼかしで情報が失われる点に注意します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/3-understand-image-processing">Microsoft Learn の参照元<span class="visually-hidden"> · ピクセルと画像処理</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
+<h2 id="unit-title-4">畳み込みニューラル ネットワーク（CNN）</h2>
+<p>CNN は、画像の局所的な関係を利用します。手で決めたフィルターと異なり、訓練によって重みを学習します。画像中の特徴がある場所で強く反応する特徴マップを作り、前半の層で捉えた輪郭や模様を組み合わせ、後半の層で部品や形を識別します。</p>
+<p>プーリングなどで空間の情報を圧縮する構成もあります。入力から抽出した特徴を分類器に渡したり、位置の推定に使ったりします。訓練時に見ていない照明や角度で同じ性能が出るかは、別のデータで検証します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/4-computer-vision-models">Microsoft Learn の参照元<span class="visually-hidden"> · 畳み込みニューラル ネットワーク（CNN）</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
+<h2 id="unit-title-5">Vision Transformer とマルチモーダル モデル</h2>
+<p>Vision Transformer は画像を小さなパッチに切り分け、各パッチをベクトルにします。並びの情報を加え、アテンションでパッチ間の関係を計算するので、離れた部分どうしの関係も考慮できます。</p>
+<p>画像とテキストを同じ用途で使えるように表現を学習させると、画像と文章を照合したり、写真に関する質問に答えたりできます。「この棚は何が不足しているか」と聞くときは、比較する基準の写真や正しい在庫情報を渡すと判断しやすくなります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/5-modern-vision-models">Microsoft Learn の参照元<span class="visually-hidden"> · Vision Transformer とマルチモーダル モデル</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">
+<h2 id="unit-title-6">画像生成</h2>
+<p>テキストで内容や構図を指定して新しい画像を作れます。拡散モデルでは、訓練中に画像へノイズを加える過程と、そのノイズを取り除く過程を学びます。生成時にはノイズから始め、文章による条件を使って段階的に画像を作ります。</p>
+<p>画像から新しい画像を作る変換や、指定部分だけを埋める編集に対応するモデルもあります。出力に必要な文字や寸法が正しいかを確認し、利用目的によって出典や生成画像であることを示します。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/5a-generate-images">Microsoft Learn の参照元<span class="visually-hidden"> · 画像生成</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-7" aria-labelledby="unit-title-7">
+<h2 id="unit-title-7">演習</h2>
+<p>チャット実習に、個人情報のない写真を渡して画像を根拠に答えさせます。</p>
+<ol class="lab-steps"><li>写真をアップロードし、まず「写真の内容を説明して」と送り、全体の説明を確認します。</li><li>次は「画面の左側に写っている物の数と色を挙げて」と指示し、対象の指定が回答をどう変えるか観察します。</li><li>読める文字のある写真でも試し、結果を原画像と照合します。画像にない物や、読めない文字を推測していないかを確認します。</li></ol>
+<p><a href="https://microsoftlearning.github.io/mslearn-ai-concepts/Instructions/exercises/05-vision.html">公式ラボの画面・サンプルを開く</a></p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/5b-exercise">Microsoft Learn の参照元<span class="visually-hidden"> · 演習</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-8" aria-labelledby="unit-title-8">
+<h2 id="unit-title-8">理解度チェック</h2>
+<div class="unit-question"><p>? Vision Transformer では、画像に位置情報を加えると何が分かりますか。</p><details><summary>解答例を見る</summary><p>パッチの内容に加えて、どのパッチが画像のどの位置にあるかを識別できます。</p></details></div>
+<div class="unit-question"><p>グレースケール画像に平均フィルターをかけると、どんな値が変わりますか。</p><details><summary>解答例を見る</summary><p>各ピクセルの明るさが近隣の値を平均したものに近づき、細かい変化が平滑化されます。</p></details></div>
+<div class="unit-question"><p>CNN の初期層が線を見つけた後、後段の層では何をしますか。</p><details><summary>解答例を見る</summary><p>線などの局所的な特徴を組み合わせ、部品や形状のような複雑な特徴を表現します。</p></details></div>
+<div class="unit-question"><p>棚の写真で商品を個別に数え、値札の文字も読みたい場合、何を組み合わせますか。</p><details><summary>解答例を見る</summary><p>物体検出で商品ごとの位置を得て数えます。値札は OCR に渡して文字を読みます。</p></details></div>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/6-knowledge-check">Microsoft Learn の参照元<span class="visually-hidden"> · 理解度チェック</span></a></p>
+</section>
+<section class="lesson-unit" id="unit-9" aria-labelledby="unit-title-9">
+<h2 id="unit-title-9">まとめ</h2>
+<p>分類、検出、領域分割では結果が異なります。CNN と Vision Transformer は画像を別の方法で表現し、生成モデルは画像を新たに作ります。</p>
+<p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/7-summary">Microsoft Learn の参照元<span class="visually-hidden"> · まとめ</span></a></p>
+</section></article>
 <nav class="lesson-nav" aria-label="前後のモジュール"><a href="speech-concepts.html">前の章 · 音声認識と音声合成</a><a href="extraction-concepts.html">次の章 · AI を使った情報抽出</a></nav>
 </main>
 <footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
