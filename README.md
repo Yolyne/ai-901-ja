@@ -6,3 +6,4 @@ Microsoft Learn のラーニングパス2本を、全15モジュールの要点�
 
 - 手元で確認するときは `index.html` をブラウザーで開きます。
 - GitHub Pages で公開するときは、このフォルダーのファイルをリポジトリの直下に配置します。`Settings → Pages` で `Deploy from a branch` を選び、`main` の `/(root)` を指定します。
+- 学習サイトはGitHub Pagesで公開します。
