@@ -25,24 +25,40 @@
 <h2 id="unit-title-2">Azure のリソース構造</h2>
 <p>管理グループはサブスクリプションをまとめる単位です。サブスクリプションは利用と課金を管理し、リソース グループには関連するリソースを入れます。リソースはストレージ アカウントや Foundry などの個別のサービスです。リージョンは配置する地理的な場所で、サービスごとの利用可否も確認します。</p>
 <p>Azure portal はこれらの作成、設定、監視を行う画面です。組織では Azure RBAC で役割を割り当て、閲覧や作成ができる範囲を指定します。</p>
+<div class="worked-example">
+<h3>誰がどこを管理するか</h3>
+<p>たとえば組織の管理グループに開発用と本番用のサブスクリプションがあり、開発用の中の専用リソース グループに Foundry やストレージを作るとします。Azure portal ではリソース グループから関連サービスを一覧表示できます。プロジェクトだけを作成できる人と、サブスクリプションの課金設定を変えられる人を別々にできます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/2-what-is-azure">Microsoft Learn の参照元<span class="visually-hidden"> · Azure のリソース構造</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">AI アプリに必要なサービス</h2>
 <p>Microsoft Entra ID は認証、ロールは認証された利用者のアクセス制御に使います。ネットワーク制御の必要があれば仮想ネットワークやプライベート接続を検討します。ホスト環境には Web Apps、Functions、コンテナーなどがあり、負荷と実行方法で選択します。</p>
 <p>Blob Storage には画像や音声などのファイルを、業務記録には用途に合うデータベースを使います。検索が必要なら索引を用意します。処理量が増えたときはアプリとモデルの容量を別々に確認します。</p>
+<div class="worked-example">
+<h3>AI アプリを構成要素に分ける</h3>
+<p>社内の設備写真を説明する例では、Web アプリが入力を受け、Blob Storage が写真を保管し、認証したバックエンドが画像をモデルに送ります。利用者にモデルの鍵を配らず、アプリが認証とアクセス権を管理します。入力が増えたときはホスト側の処理容量とモデル側のトークンや要求の上限をそれぞれ測ります。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/3-develop-ai-apps">Microsoft Learn の参照元<span class="visually-hidden"> · AI アプリに必要なサービス</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">Foundry のモデル、エージェント、ツール、ナレッジ</h2>
 <p>Foundry ではモデル カタログからモデルを選び、推論を試します。エージェントにはモデル、役割、必要なツールを設定します。Foundry Tools には言語・音声・情報抽出などの機能があり、ナレッジを使うと組織のデータを応答の根拠にできます。</p>
 <p>Foundry リソースとプロジェクトを作ることで、デプロイ、エージェント、テストなどを開発単位で管理できます。Foundry portal ではモデル選定、デプロイ、プレイグラウンドでの試験、評価を行い、アプリへの組み込みに進みます。</p>
+<div class="worked-example">
+<h3>Foundry の機能を選ぶ</h3>
+<p>生成モデルで写真を説明し、Foundry Tools の言語機能でタグを作り、社内規程を調べるエージェントではナレッジ ベースを参照します。モデル、ツール、エージェント、ナレッジを別々に設定する理由は、どの部品が入力を処理し、どの部品が情報を取りに行くかが異なるためです。プレイグラウンドで個々の部品を試してから組み込みます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/4-microsoft-foundry">Microsoft Learn の参照元<span class="visually-hidden"> · Foundry のモデル、エージェント、ツール、ナレッジ</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
 <h2 id="unit-title-5">エンドポイントを使う</h2>
 <p>エンドポイントは API を呼ぶ接続先です。プロジェクトを扱う URL とモデル推論を扱う URL で、用途やクライアントが異なる場合があります。要求の際には、目的に合う URL、デプロイ名やエージェント名、認証と権限を揃えます。</p>
 <p>REST は HTTP で直接呼び出せるインターフェース、SDK はプログラムで扱いやすくするライブラリです。開発環境では Azure CLI のログインを利用できる場合があります。本番ではマネージド ID など実行環境に合った認証と必要なロールを設定します。</p>
+<div class="worked-example">
+<h3>エンドポイントを取り違えない</h3>
+<p>プロジェクト管理用のエンドポイントは、エージェントやプロジェクトの接続を扱うクライアントに渡します。モデルの Responses API を直接呼ぶ場合は、使用する API が求める推論用の URL とデプロイ名を指定します。ポータルで見た URL を何でも同じ接続先として使うと、認証は通っても目的の API が見つからないことがあります。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/5-endpoints">Microsoft Learn の参照元<span class="visually-hidden"> · エンドポイントを使う</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">

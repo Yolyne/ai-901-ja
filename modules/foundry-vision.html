@@ -49,18 +49,30 @@ response = client.responses.create(
     }],
 )
 print(response.output_text)</code></pre>
+<div class="worked-example">
+<h3>マルチモーダル入力の形を確認する</h3>
+<p>画像の入ったメッセージには、指示と画像の両方を含めます。たとえば画像内容の説明文と、看板を拡大しないと読めない文字では、期待する応答が違います。「読めない場合は不明」と指示し、見えている数と答えが合うかを一覧にして確認します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/2-vision-enabled-models">Microsoft Learn の参照元<span class="visually-hidden"> · マルチモーダル モデルで画像を分析する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">画像生成モデルを使う</h2>
 <p>画像生成のプレイグラウンドでは、被写体、視点、背景などを指定します。クライアントから呼び出すときは、使うデプロイと API に応じて出力サイズや品質を指定し、画像データを受け取って表示または保存します。構成によって、画像生成用の呼び出しや Responses API の画像生成ツールを使います。</p>
 <p>入力を一つずつ変え、意図した変更を比較します。指定した文字、寸法、図の正確さが重要なら、生成された画像を目視や別の方法で検証します。</p>
+<div class="worked-example">
+<h3>画像データを受け取って表示する</h3>
+<p>画像生成専用の呼び出しが使えるモデルでは、モデル引数にデプロイ名を指定し、プロンプトと生成条件を送ります。生成された画像が Base64 文字列で返った場合はバイト列に変換して保存します。テキスト返信と画像を一緒に扱う構成なら、応答のうち画像生成の項目を取り出します。選んだ API とモデルが対応する出力形式に合わせます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/3-image-generation">Microsoft Learn の参照元<span class="visually-hidden"> · 画像生成モデルを使う</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">動画生成モデルを使う</h2>
 <p>テキストから動画を生成する場合は、場面に加えて動きや順序を指定します。プレイグラウンドで動きや構図を確認し、API からは出力時間や解像度など対応するオプションを指定します。</p>
 <p>REST API が非同期ジョブを使う場合は、動画ジョブを作って ID を受け取り、その ID でステータスを確認し、成功したらコンテンツをダウンロードします。失敗やタイムアウト時の扱いと、生成にかかる時間・費用も考慮します。</p>
+<div class="worked-example">
+<h3>動画生成で非同期処理を扱う</h3>
+<p>動画生成を要求して受け取った ID を控え、状態が待機中または処理中なら時間を空けて再確認します。成功した場合だけコンテンツをダウンロードし、失敗なら状態と理由を記録します。アプリの要求をいつまでも開いたままにせず、ジョブの進捗を表示できる形にすると、利用者が途中で画面を閉じても再確認できます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/4-video-generation">Microsoft Learn の参照元<span class="visually-hidden"> · 動画生成モデルを使う</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

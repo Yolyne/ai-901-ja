@@ -25,6 +25,11 @@
 <h2 id="unit-title-2">カタログからモデルを選び、デプロイする</h2>
 <p>Foundry のモデル カタログでは、提供元、入出力形式、対応機能などを見て候補を選びます。学習資料を要約する用途なら文章が扱えること、写真を説明する用途なら画像入力が扱えることを確かめます。評価データで品質を比較し、リージョン、費用、応答速度、割り当てを確認します。</p>
 <p>デプロイ名はクライアントが呼び出すときの識別子で、元のモデル名と異なる場合があります。標準系・プロビジョニング系などの選択肢はモデルやリージョンによって異なります。割り当ての TPM は1分間に扱うトークンの容量に関係し、RPM の制限も呼び出し数に影響します。</p>
+<div class="worked-example">
+<h3>デプロイ条件を比較する</h3>
+<p>数秒以内に返す質問対応ではオンライン推論のデプロイが必要です。夜間に数万件の要約を作る場合は、対応モデルならバッチ方式も候補です。処理場所に制約があるならリージョンやデータの扱いを先に確認し、一定の処理量が必要ならプロビジョニングされた容量も比較します。</p>
+<p>仮に1回の呼び出しで平均800トークンを使い、毎分120回呼ぶと、目安は毎分96,000トークンです。実際の割り当てと制限計算を確認し、TPM だけでなく毎分要求数も確認します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/2-generative-ai-models">Microsoft Learn の参照元<span class="visually-hidden"> · カタログからモデルを選び、デプロイする</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
@@ -48,6 +53,10 @@ response = client.responses.create(
     input=&quot;届いた商品を送り返す方法を知りたいです。&quot;,
 )
 print(response.output_text)</code></pre>
+<div class="worked-example">
+<h3>プレイグラウンドからクライアントへ移す</h3>
+<p>同じデプロイに、短い要約と分類の入力を用意します。プレイグラウンドで指示と最大出力を確認したら、アプリへ同じ入力を移します。SDK の応答オブジェクトから本文を読み、空の回答やエラーも扱います。モデルの種類によっては温度などの指定が使えないので、未対応ならその指定を外して比較します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/3-using-generative-ai-models">Microsoft Learn の参照元<span class="visually-hidden"> · プレイグラウンドと Python からモデルを使う</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
@@ -74,6 +83,10 @@ with DefaultAzureCredential() as credential, AIProjectClient(
                 input=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: text}],
             )
             print(reply.output_text)</code></pre>
+<div class="worked-example">
+<h3>保存・公開・利用を追う</h3>
+<p>まずテスト用のエージェントで、検索を含む質問と検索が不要な質問を1回ずつ送ります。公開したエージェントをクライアントから利用する構成では、ポータルが示す名前とアクセス条件を確認します。会話 ID を維持したまま「その理由も教えて」と送ると、何を指すか前の発言から追えます。別の利用者には別の会話 ID を作ります。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/4-creating-an-agent">Microsoft Learn の参照元<span class="visually-hidden"> · ポータルでエージェントを作り、コードから使う</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

@@ -24,6 +24,10 @@
 <section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
 <h2 id="unit-title-2">音声を使うアプリの例</h2>
 <p>会議字幕には音声認識、駅の読み上げには合成、会話通訳には認識・翻訳・合成が必要です。録音が終わってから処理する方法と、会話しながら結果を出す方法では、処理時間や途中結果の扱いが異なります。字幕と文字入力の選択肢は、マイクが使えない利用者にも役立ちます。</p>
+<div class="worked-example">
+<h3>音声機能を選ぶ</h3>
+<p>顧客窓口では発話の文字起こしを記録に回し、案内を音声で返せます。教材サイトなら長い文章を読み上げ、視覚に頼らず学習できるようにできます。電話録音、リアルタイム字幕、決まったアナウンスでは、応答時間、使用言語、同意や保存の取り扱いが異なります。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/2-speech-solutions">Microsoft Learn の参照元<span class="visually-hidden"> · 音声を使うアプリの例</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
@@ -31,12 +35,21 @@
 <p>音声の波形から言葉を推定します。騒音、マイクの品質、アクセント、専門語や固有名詞が結果に影響します。必要に応じて認識言語を指定し、サービスが対応する場合は認識のヒントとして語句の候補を設定します。文書化が目的なら句読点や話者の区別も結果の確認項目です。</p>
 <p>例として「明日の第3便です」を静かな部屋と騒がしい部屋で録音すると、数字や便名が拾えないことがあります。全体の正解率だけでなく、業務上重要な数字が正しいかを調べます。</p>
 <p>デジタル化した音から短い区間ごとに情報を取り出します。古典的な認識では、人が聞く周波数の特性を考慮した特徴量（MFCC など）を使い、音響モデルで音素の候補を、言語モデルで自然な語の並びを評価します。ビーム サーチでは、有力な候補を複数残しながら文全体を組み立てます。最後に句読点や数字の表記を整えます。現代の認識モデルには、これらの工程をまとめて学習する構成もあります。</p>
+<div class="worked-example">
+<h3>波形が時刻表の文章になるまで</h3>
+<p>マイクの電気信号は一定間隔で測定してデジタル化します。古典的な方式では短い区間ごとに窓を適用し、周波数成分を求め、人間の聴覚に近いメル尺度で絞って対数を取り、変換して MFCC を得ます。たとえば同じ強さでも周波数成分の違いが、発話を区別する情報になります。</p>
+<p>音響モデルは音素などの候補を推定し、言語モデルは周囲の語との自然なつながりを評価します。「三番線に着きます」の途中で「さんばんせん」の解釈が曖昧でも、線路の案内という文脈が手がかりになります。ビームサーチは候補を複数保ちながら文を選び、後処理で数字と句読点を整えます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/3-speech-recognition">Microsoft Learn の参照元<span class="visually-hidden"> · 音声認識</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">音声合成</h2>
 <p>合成では言語、音声、出力形式を選び、テキストを読み上げます。SSML は、対応する音声で発音、間、速度、抑揚を指定するときに使うマークアップです。金額・日付・略語の読みが曖昧なら、原稿や SSML を調整して実際の音声を聞き比べます。</p>
 <p>合成の処理では、まず「7:30」のような表記を読み上げ向けに正規化し、文字列から音素を推定します。次にどこを強く読み、どのくらい間を空けるかといった韻律を決め、最終的に可聴の波形を生成します。ニューラル音声合成では、音響モデルが音の表現を作り、ボコーダーが波形へ変換する構成があります。</p>
+<div class="worked-example">
+<h3>数字の正規化から音声まで</h3>
+<p>「受付は 7:30 です」は、まず「しちじさんじゅっぷん」のように読み上げやすい形に正規化します。文字から音素に対応付け、どこで区切るか、疑問や強調でどこを高く読むかを決めます。音響モデルが音を表す特徴を作り、ニューラル方式ではボコーダーで波形にする構成があります。営業時間や電話番号は、合成後の実音声でも確認します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/4-speech-synthesis">Microsoft Learn の参照元<span class="visually-hidden"> · 音声合成</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

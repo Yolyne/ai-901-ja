@@ -24,18 +24,30 @@
 <section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
 <h2 id="unit-title-2">ポータルで音声エージェントを作る</h2>
 <p>Foundry で対象のプロジェクトを開き、音声エージェントを作成します。利用できる音声対応モデルと接続が揃っているかを確認し、音声のテスト画面でマイク入力を許可して短い会話を始めます。入力が来ない場合はマイクと権限、応答が聞こえない場合は音声出力を分けて確認します。</p>
+<div class="worked-example">
+<h3>対話の範囲を絞る</h3>
+<p>最初のテストは「返品できる条件を説明する」に絞ります。注文を操作する機能は接続せず、利用者が操作を求めたら担当窓口を案内します。目的、取り扱える質問、担当者へ引き継ぐ条件を決めてから、ポータルで音声テストを始めます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/2-explore-create-voice-agent">Microsoft Learn の参照元<span class="visually-hidden"> · ポータルで音声エージェントを作る</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">指示、声、あいさつを設定する</h2>
 <p>書き言葉の長い説明は、音声では理解しにくくなることがあります。「一度に一つだけ質問し、予約の日時と人数を復唱する」といった会話向けの指示を設定します。あいさつでは何を手伝えるかを短く伝えます。</p>
 <p>言語や用途に合う声を選び、読み方や速度を確認します。聞き取れない場合や情報が足りない場合の応答、引き継ぎ先の案内も指示します。実際に予約を確定する機能があるなら、日時と人数を復唱してから実行するようにします。</p>
+<div class="worked-example">
+<h3>耳で分かる指示を書く</h3>
+<p>指示の例は「まず一文で結論を伝える。確認が必要なら質問は一つずつ。日付や番号はゆっくり復唱する」です。あいさつは「返品手順をご案内します。どうされましたか」のように用途を伝えます。同じ回答を画面で読む場合と音声で聞く場合を比べ、長すぎる前置きや読みづらい番号を見直します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/3-configure-voice-agent">Microsoft Learn の参照元<span class="visually-hidden"> · 指示、声、あいさつを設定する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">タイミングと割り込みをテストする</h2>
 <p>話している途中の間、短い返事、言い直し、応答中の割り込みを試します。発話の終わりを早く判断しすぎると途中で応答し、遅すぎると会話が間延びします。 Basic は音量や無音の長さで、Azure semantic は発話の意味も使って話者の交代を判断します。Basic の Silence duration を長くすると途中の間を許容しやすくなりますが、返答開始が遅くなる場合があります。待ち時間、聞き取り、意図の理解、応答の長さを分けて記録します。</p>
 <p>設定や指示を一つ変えたら、修正前と同じ入力で試します。会話の一部がうまくいっても、先に伝えた情報を引き継げているか、修正後の日時を確認しているかまで見ます。</p>
+<div class="worked-example">
+<h3>設定を一つずつ変えて比較する</h3>
+<p>「土曜日の……午後です」と途中で間を空ける発話、応答中に「やっぱり日曜」と訂正する発話、短く「はい」と答える発話を用意します。Basic で途中に割り込むなら無音と見なす時間を調整し、Azure semantic を利用できる場合は同じ発話で比較します。途中で遮られる回数と、話し終えてから応答が始まるまでの時間を別々に記録します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/4-test-improve-voice-agent">Microsoft Learn の参照元<span class="visually-hidden"> · タイミングと割り込みをテストする</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

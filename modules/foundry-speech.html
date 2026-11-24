@@ -43,6 +43,10 @@ if result.reason == speech.ResultReason.RecognizedSpeech:
     print(result.text)
 else:
     print(result.reason)</code></pre>
+<div class="worked-example">
+<h3>マイク・ファイル・継続認識を使い分ける</h3>
+<p>短い案内音声だけならファイルから単発認識できます。会話を字幕にする場合は継続認識を開始し、認識中の暫定結果と認識済みの確定結果を分けます。前者は画面に表示するだけ、後者は保存すると重複を減らせます。終了時には認識を停止し、キャンセルの情報を確認します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/2-speech-recognition">Microsoft Learn の参照元<span class="visually-hidden"> · Azure Speech で音声を認識する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
@@ -63,12 +67,20 @@ audio = speech.audio.AudioOutputConfig(filename=&quot;guide.wav&quot;)
 synthesizer = speech.SpeechSynthesizer(speech_config=config, audio_config=audio)
 result = synthesizer.speak_text_async(&quot;受付は午前7時30分に始まります。&quot;).get()
 print(result.reason)</code></pre>
+<div class="worked-example">
+<h3>合成結果の保存と確認</h3>
+<p>読み上げファイルを作る例では、音声名、出力形式、保存先を指定して合成します。処理が成功したと通知されたら WAV を再生し、日付と数字の発音を確認します。失敗した場合はキャンセル詳細を調べ、資格情報、エンドポイントと音声の対応を確認します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/3-speech-synthesis">Microsoft Learn の参照元<span class="visually-hidden"> · Azure Speech で文章を読み上げる</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">音声対応エージェントと Voice Live</h2>
 <p>音声対話では、マイクの音を送り、応答音声を連続して受け取ります。Azure Speech の Voice Live を使う構成ではリアルタイムのセッションを開き、双方向に音声やイベントをやり取りします。発話終了、応答開始、割り込み、セッション終了のイベントを区別して、音声の送受信と再生を制御します。</p>
 <p>試作時は Foundry のサンプルや公式 SDK を使い、マイクからの入力と応答の再生を一つずつ確認します。文字起こし用 SDK の単発認識と、音声を直接送って応答を受ける処理の違いを押さえます。</p>
+<div class="worked-example">
+<h3>Voice Live で一往復する</h3>
+<p>リアルタイム接続を開いたら、セッションに音声の形式と会話の設定を渡します。マイクから送った音声をもとに、音声応答の断片を逐次受け取って再生します。利用者が応答中に話し始めたら、古い応答を止めて次の発話を扱うなど、送信と再生をイベントで制御します。音声の往復と字幕表示は別々に検証します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/4-voice-live">Microsoft Learn の参照元<span class="visually-hidden"> · 音声対応エージェントと Voice Live</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

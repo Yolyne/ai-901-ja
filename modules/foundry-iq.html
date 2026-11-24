@@ -25,17 +25,29 @@
 <h2 id="unit-title-2">Foundry IQ と Azure AI Search</h2>
 <p>Foundry IQ は Azure AI Search の検索基盤を使います。ナレッジ ソースで資料の接続先や検索方法を定義し、ナレッジ ベースでソースをまとめ、検索の動きを構成します。複数の観点が必要な自然言語の質問を分けて検索し、関連する結果を返せます。</p>
 <p>利用可能な Azure AI Search リソースを選び、Foundry と接続します。プレイグラウンドで使うプロジェクトや実際のエージェントの ID に、対象データを読み取るためのロールを割り当てます。検索サービスの構成と、エージェントからのアクセス権をそれぞれ確認します。</p>
+<div class="worked-example">
+<h3>検索用リソースとアクセスを確認する</h3>
+<p>Foundry IQ を使うプロジェクトから Azure AI Search へ接続します。プレイグラウンドで検索するプロジェクトのマネージド ID に必要な検索データの読み取りロールを与えます。本番エージェントの ID が異なる場合は、同じデータを読めるかその ID でもテストします。接続先が正しくても、権限がなければ情報は取得できません。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/2-explore-foundry-iq">Microsoft Learn の参照元<span class="visually-hidden"> · Foundry IQ と Azure AI Search</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">ナレッジ ベースとナレッジ ソース</h2>
 <p>対応するソースには既存の検索索引などがあり、資料の場所、更新頻度、権限、必要な前処理を考慮して選びます。一つのナレッジ ベースから複数のソースを利用できます。資料ごとに識別子、版、出典を持たせることで、回答の根拠を追いやすくなります。</p>
+<div class="worked-example">
+<h3>一つのナレッジ ベースに複数のソースをつなぐ</h3>
+<p>旅費の規程が検索索引、申請書の手順が Blob Storage にあるとします。接続できるソースとしてそれぞれ設定し、一つのナレッジ ベースから探せるようにします。更新の反映、文書の権限、検索結果に出典が付くかを確認し、複数のエージェントが同じ知識源を使える構成にします。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/3-knowledge-bases">Microsoft Learn の参照元<span class="visually-hidden"> · ナレッジ ベースとナレッジ ソース</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">エージェントに接続して評価する</h2>
 <p>Foundry のエージェントにナレッジ ベースを設定し、規程や資料を根拠に答えること、根拠が足りなければそう伝えること、参照先を示すことを指示します。期待する文書が検索されるか、回答と引用元が一致するかを別々に確認します。</p>
 <p>資料にない質問、異なる版が存在する質問、複数資料を参照する質問を試します。取得結果に問題があればソースや検索設定、適切な結果から誤答したら指示や回答の組み立て方を見直します。</p>
+<div class="worked-example">
+<h3>複数条件の回答を検証する</h3>
+<p>「東京への日帰り出張では、交通費と日当をどう申請しますか」という質問には、交通費と日当で異なる規程が必要な場合があります。各判断に対応した箇所を取得できたか、引用が各金額を裏付けているかを確認します。資料にない例外を聞いて、分からないことを明示できるかも試します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/4-connect-agents">Microsoft Learn の参照元<span class="visually-hidden"> · エージェントに接続して評価する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

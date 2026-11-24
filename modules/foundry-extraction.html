@@ -42,12 +42,20 @@ operation = client.begin_analyze(
 )
 for item in operation.result().contents:
     print(item.fields)</code></pre>
+<div class="worked-example">
+<h3>アナライザーとスキーマを具体化する</h3>
+<p>テスト用の請求書を「明細2行、値引き1行、税額1つ」とし、請求番号を文字列、税込合計を数値、明細を品名と数量を持つ配列として定義します。汎用の文書アナライザーで文字と表を確かめた後、フィールド抽出で値引きを商品と取り違えていないかを見ます。サンプルによって予定の項目が存在しない場合は、値が欠けていることを表せるようにします。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/2-documents">Microsoft Learn の参照元<span class="visually-hidden"> · スキーマとアナライザーで文書を分析する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">音声・動画から構造化データを作る</h2>
 <p>通話の分析では文字起こしだけでなく、問い合わせの理由、対応、次の行動などを抽出できます。動画では発話に加え、場面、映像上のテキスト、製品の登場区間などを、目的に合わせて調べます。時刻や位置を持つ結果が必要なら、元のメディアと照合します。</p>
 <p>クライアントでは認証した Azure Content Understanding の SDK で、対象メディアを扱えるアナライザーと入力を指定します。begin_analyze で処理を開始して完了を待ち、結果のコンテンツとフィールドを読みます。空欄、型の誤り、重要な値の矛盾を検出し、原文に戻れるようにします。</p>
+<div class="worked-example">
+<h3>メディアで結果を変える</h3>
+<p>通話の「金曜までに見積もりを送ります」なら、誰が何をいつまでにするかをフィールドにします。商品紹介動画なら、映像中の型番、発話で説明した機能、登場する区間を別々に記録できます。音声と動画で使うアナライザーを選び、処理完了後にタイムスタンプやフィールドを元メディアと照合します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/3-audio-video">Microsoft Learn の参照元<span class="visually-hidden"> · 音声・動画から構造化データを作る</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">

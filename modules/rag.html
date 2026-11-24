@@ -24,24 +24,40 @@
 <section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
 <h2 id="unit-title-2">検索で文脈を補う</h2>
 <p>RAG は検索、入力への追加、回答生成という流れです。たとえば国内出張の日当について質問されたら、最初に規程を検索し、対象者、地域、適用日の揃った箇所を質問と一緒にモデルに渡します。回答には該当箇所への参照を添えます。</p>
+<div class="worked-example">
+<h3>検索結果を渡す前と後を比べる</h3>
+<p>従業員から「2026年4月の国内出張の日当はいくら？」と聞かれたとします。一般の言語モデルだけでは社内の金額を確定できません。社内規程の「4月1日以降、国内出張は1日2,500円」という断片を渡すと、この値と適用日を根拠に回答できます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/2-understand-rag">Microsoft Learn の参照元<span class="visually-hidden"> · 検索で文脈を補う</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">データを準備する</h2>
 <p>資料を選び、重複や古い版、読み取れない箇所を整理します。ページ単位や見出し単位など、意味のまとまりで分割し、文書名や日付、URL、アクセス権を紐づけます。節が分割される場合は隣接する範囲を一部重ねる方法があります。</p>
 <p>各断片を埋め込みモデルでベクトルに変換し、検索用の索引に登録します。キーワード検索も使うなら元のテキストも保存します。変更時は対応する断片と索引を更新し、削除された文書が検索結果に残らないようにします。</p>
+<div class="worked-example">
+<h3>索引の1レコードを設計する</h3>
+<p>たとえば経費規程を節で分けたら、1件ごとに断片 ID、見出し、本文、文書 URL、施行日、閲覧可能なグループ、埋め込みを保存します。「国内出張」の条件と例外が別々の断片になる場合は境界を調整し、参照元では両方を読めるようにします。再登録では旧版の断片を検索対象に残すか、履歴へ移すかを決めます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/3-prepare-data">Microsoft Learn の参照元<span class="visually-hidden"> · データを準備する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">検索結果を使って回答する</h2>
 <p>検索には文字の一致を重視する方法、埋め込みの類似度を使う方法、その両方を使うハイブリッド検索があります。質問と利用者の権限に合う資料に絞り、必要に応じて関連度で並べ替えます。</p>
 <p>選んだ断片を出典付きでプロンプトに入れ、資料にある内容を使うこと、根拠が足りなければ明示することを指示します。参照元が同じでも版が違えば結論は変わるため、引用先と適用日を確認します。</p>
+<div class="worked-example">
+<h3>検索と回答を小さな例で追う</h3>
+<p>「宿泊費の制限」という質問に、上位の候補として文書 A「2026年、東京の上限は13,000円」、文書 B「2025年は12,000円」、文書 C「交通費を精算する」を得たとします。適用日・対象都市で候補を絞り、文書 A と質問をモデルに渡します。「回答のすぐ後に適用日と文書名を示す」と指定します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/4-retrieve-generate">Microsoft Learn の参照元<span class="visually-hidden"> · 検索結果を使って回答する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
 <h2 id="unit-title-5">RAG の評価</h2>
 <p>検索の評価では、期待した根拠が上位の候補に含まれたかを確認します。回答の評価では、質問に関連しているか、資料に裏付けられているか、必要な点が揃っているかを確認します。誤りが見つかったら、検索と生成のどこで失敗したか切り分けます。</p>
 <p>候補を増やすと見落としが減ることがありますが、処理時間やトークンが増えます。正答あり、正答なし、版違い、権限の異なる利用者の例を用意し、回答品質・応答時間・費用を比較します。</p>
+<div class="worked-example">
+<h3>取得と生成を別々に採点する</h3>
+<p>5問を用意して、そのうち4問で正しい資料が上位3件に入った場合、正解資料を少なくとも一つ取れた割合は4÷5=80%です。この4問中、正しく回答したのが3問なら、残る1問は正しい資料があっても生成段階で失敗した例として調べます。候補数を増やすと検索の取りこぼしは減る可能性がありますが、応答時間と入力トークン数も測ります。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/5-evaluate-rag">Microsoft Learn の参照元<span class="visually-hidden"> · RAG の評価</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-6" aria-labelledby="unit-title-6">

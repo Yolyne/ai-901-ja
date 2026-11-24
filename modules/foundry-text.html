@@ -25,6 +25,11 @@
 <h2 id="unit-title-2">汎用モデルと Azure Language でテキストを分析する</h2>
 <p>汎用モデルには、キーフレーズ、固有表現、感情とその対象を指定の形式で返すよう依頼できます。たとえば「配達は速かったが冷凍品が解けていた」では、配送速度と温度管理を別の評価対象にします。利用条件に合う場合は構造化出力を指定し、受け取った型を検証します。</p>
 <p>Azure Language には言語検出、固有表現認識、感情分析、キーフレーズ抽出、個人を特定できる情報（PII）の検出などがあります。言語検出で入力に合う処理を選び、PII 検出のマスク済み結果はログ共有などに使えます。検出漏れの可能性は代表例で確認します。</p>
+<div class="worked-example">
+<h3>目的別に返ってくる値を比べる</h3>
+<p>「大阪支店へ電話したら案内は丁寧だったが、待ち時間は長かった」というレビューでは、キーフレーズは支店・案内・待ち時間など、固有表現は場所などを返します。対象別の感情分析を使うと、案内は好意的、待ち時間は否定的という結果を同じ文から得られます。</p>
+<p>アプリで集計するなら文書 ID と対象、評価を保存します。言語検出の信頼度が低い短文や、人名や電話番号が残っているマスク済みテキストは、確認対象にできます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/2-azure-language">Microsoft Learn の参照元<span class="visually-hidden"> · 汎用モデルと Azure Language でテキストを分析する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
@@ -51,12 +56,20 @@ for result in client.analyze_sentiment(documents, show_opinion_mining=True):
     for sentence in result.sentences:
         for opinion in sentence.mined_opinions:
             print(opinion.target.text, opinion.target.sentiment)</code></pre>
+<div class="worked-example">
+<h3>テキスト分析の出力を検証する</h3>
+<p>汎用モデルに「topic と sentiment の二つのフィールドを持つ配列」と指示したら、アプリ側で JSON として解釈し、評価値が許容リストに含まれるか確認します。Azure Language の専用クライアントでは、正常に分析できた各文書から対象語とその評価を取得します。複数件のうち1件だけ入力が無効なら、他の結果は残し、その1件を記録して再処理できます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/3-language-sdk">Microsoft Learn の参照元<span class="visually-hidden"> · Python のクライアントを作る</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
 <h2 id="unit-title-4">MCP を使ってエージェントに分析ツールを追加する</h2>
 <p>Model Context Protocol（MCP）は、エージェントが外部ツールの定義を知り、決められた入力で呼び出すための仕組みです。Azure Language の MCP サーバーをツールとして接続できる構成では、利用する分析機能と認証、アクセス範囲を設定します。</p>
 <p>ポータルでエージェントにテキスト分析を依頼し、適切なツールが選ばれたか、結果を正しく説明したかを確認します。入力不足やツールが利用できないときの応答も試します。</p>
+<div class="worked-example">
+<h3>エージェントの実行履歴を確認する</h3>
+<p>MCP に接続したエージェントへ「この文に住所が含まれるか調べて」と依頼し、どのツールを呼び、どの入力を渡し、何が返ったかを確認します。ツールが使えない場合にモデルが「検査済み」と回答してしまわないよう、失敗時は分析できなかったと伝える指示を入れて試します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/4-language-mcp">Microsoft Learn の参照元<span class="visually-hidden"> · MCP を使ってエージェントに分析ツールを追加する</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">

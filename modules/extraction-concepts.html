@@ -24,12 +24,20 @@
 <section class="lesson-unit" id="unit-2" aria-labelledby="unit-title-2">
 <h2 id="unit-title-2">入力形式ごとの処理</h2>
 <p>PDF などに含まれる文字、画像内に写った文字、録音の発話、動画内の映像や音声は、別々の手段で認識します。認識したテキストや画像の位置情報を手がかりに、決まった項目や意味のある要約へ整理します。表の構造、繰り返し項目、データの欠損も考慮します。</p>
+<div class="worked-example">
+<h3>処理対象に応じて方法を選ぶ</h3>
+<p>印刷された送り状ならOCRとレイアウト、通話録音なら音声認識と会話の分析、製品動画なら発話や画面上の情報を組み合わせます。固定レイアウトの書類は位置やラベルのルールが使えます。取引先によって帳票が異なるなら、文書モデルや生成モデルで複数の様式を試します。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/2-overview">Microsoft Learn の参照元<span class="visually-hidden"> · 入力形式ごとの処理</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-3" aria-labelledby="unit-title-3">
 <h2 id="unit-title-3">光学文字認識（OCR）</h2>
 <p>OCR は画像から文字領域を見つけ、そこに写る字を読み取ります。結果には、抽出した文字列、ページ上の位置、信頼度などが含まれる場合があります。印刷と手書き、傾き、解像度、照明によって精度が変わります。複数列の文書なら、読み順が保たれているかも確認します。</p>
 <p>画像を取得した後は、必要に応じて傾きや明るさを補正し、文字がある領域を検出します。次にその部分を読み、読み順、空白、表記などを後処理で整えます。元画像を残しておくと、どの段階で値が変わったか確認できます。</p>
+<div class="worked-example">
+<h3>OCR の失敗箇所を調べる</h3>
+<p>斜めから撮ったレシートでは、まず画像の傾きや明るさを補正します。文字領域を検出し、各領域の文字を認識し、最後に行順や表の並びを整えます。「1,108」が「1,10B」になるなら文字分類、1行抜けているなら領域検出、税込と税抜の行が入れ替わるなら読み順を先に疑います。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/3-vision-extraction">Microsoft Learn の参照元<span class="visually-hidden"> · 光学文字認識（OCR）</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-4" aria-labelledby="unit-title-4">
@@ -37,6 +45,11 @@
 <p>「合計」「小計」「税額」を、周囲のラベルやレイアウトから識別して対応するフィールドへ格納します。文書の種類に応じてあらかじめ用意された抽出方法と、業務に合わせて項目を定義する方法があります。明細のように繰り返す項目は配列として扱えます。</p>
 <p>固定様式ならラベルや位置のテンプレート、様式が変わるなら学習済みの抽出モデルやスキーマを渡した生成 AI を候補にします。影響の大きい項目は信頼度の閾値や業務ルールで振り分け、確認が必要な箇所を絞ります。</p>
 <p>抽出後は、日付を揃える、通貨を区別する、合計額を照合するなどの検証を行います。読めなかった値は欠損として記録し、検証に失敗したものは元の資料を確認できるようにします。</p>
+<div class="worked-example">
+<h3>項目の検証と連携を設計する</h3>
+<p>例として、納品書に「部品 A × 3」「単価 ¥120」「税抜合計 ¥360」とあれば、明細には品名、数量、単価を格納し、合計を別のフィールドに付けます。数量は整数、日付は統一形式、通貨は別項目と決めて、後続システムの項目名に対応付けます。</p>
+<p>3×120 と合計が一致しないときは登録せず確認に回します。フィールドごとの正解率や人の確認が必要だった割合を集計し、読み間違いが多い様式を見つけます。</p>
+</div>
 <p class="unit-source"><a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/4-form-extraction">Microsoft Learn の参照元<span class="visually-hidden"> · フィールドの抽出と対応付け</span></a></p>
 </section>
 <section class="lesson-unit" id="unit-5" aria-labelledby="unit-title-5">
