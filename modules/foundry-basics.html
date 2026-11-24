@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Azure で AI 開発を始める | AI-901 日本語学習ガイド</title>
+<meta name="description" content="Azure のリソース構造を理解し、Foundry のポータルとアプリが同じデプロイをどう使うかを学びます。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#practice">AI-901 学習ガイド · 実践編</a>
+<h1>Azure で AI 開発を始める</h1><p class="intro">Azure のリソース構造を理解し、Foundry のポータルとアプリが同じデプロイをどう使うかを学びます。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>Azure サブスクリプション</li><li>Foundry プロジェクト</li><li>デプロイ</li><li>アプリ</li></ol></figure>
+<article>
+<h2>Azure のリソース</h2>
+<p>サブスクリプションは課金や利用の境界です。リソース グループで関連リソースをまとめ、リージョンでサービスを配置する場所を選びます。Azure にはコンピューティング、ストレージ、アクセス管理などの機能があり、AI アプリでは通常これらをモデルや AI サービスと組み合わせます。</p>
+<h2>Foundry でモデルを使えるようにする</h2>
+<p>Foundry は、モデル、ツール、エージェントを開発・評価・管理するプラットフォームです。プロジェクトを作り、モデル カタログで用途に合うモデルを確認します。対応する入力形式、デプロイ方式、リージョン、割り当て、費用を見てデプロイし、プレイグラウンドで短い入力を試します。</p>
+<h2>エンドポイントと認証</h2>
+<p>エンドポイントはアプリが要求を送る接続先です。プロジェクトに接続するときとモデル推論を呼ぶときでは、使う URL やクライアントが異なる場合があります。Azure CLI でサインインして開発時の資格情報を使い、本番では環境に合うマネージド ID と権限を設定する方法があります。</p>
+<h2>ポータルで試す</h2>
+<p>公式演習を開き、Azure サブスクリプションと使えるリージョンを確認します。プロジェクトとデプロイを作り、プレイグラウンドで応答を確認します。プロジェクトのエンドポイントとデプロイ名を控え、実習が終わったら演習専用のリソースを整理します。</p>
+<h2>ミニ演習</h2>
+<p>ポータルで動いたモデルを Python から呼ぶために、最低限どの情報を揃えますか。</p>
+<details><summary>解答例を見る</summary><p>利用する API に合ったエンドポイント、デプロイ名、認証方法とアクセス権です。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/6-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="rag.html">前の章 · 検索拡張生成（RAG）</a><a href="foundry-agents.html">次の章 · 生成 AI とエージェントを試す</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>コンピューター ビジョン | AI-901 日本語学習ガイド</title>
+<meta name="description" content="画像を数値として扱う考え方と、用途別の画像認識・生成を学びます。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#concepts">AI-901 学習ガイド · 基礎編</a>
+<h1>コンピューター ビジョン</h1><p class="intro">画像を数値として扱う考え方と、用途別の画像認識・生成を学びます。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>画像</li><li>ピクセルの配列</li><li>認識結果または生成結果</li></ol></figure>
+<article>
+<h2>分類・検出・セグメンテーション</h2>
+<p>分類は画像全体にラベルを付けます。物体検出は物体の種類と位置を矩形で示します。セグメンテーションは、どのピクセルが対象に属するかを判定します。画像上の文字を読み取るなら OCR です。</p>
+<h2>画像の表現と画像処理</h2>
+<p>カラー画像は例えば赤、緑、青のチャネルに分けられ、各ピクセルを数値で表現できます。リサイズは大きさをそろえ、フィルターは近隣の画素を使ってぼかしたり輪郭を強めたりします。小さな文字が重要な用途では、縮小で情報が失われないかを確認します。</p>
+<h2>CNN と Vision Transformer</h2>
+<p>畳み込みニューラル ネットワーク（CNN）は、局所的な模様を検出するフィルターを学び、層を重ねて複雑な特徴を捉えます。Vision Transformer は画像をパッチに分割して、パッチ間の関係を考慮します。マルチモーダル モデルは画像とテキストを組み合わせ、「写真のどこに傷が見える？」といった質問に答えられます。</p>
+<h2>画像生成</h2>
+<p>生成モデルは、被写体や構図の指示を条件に新しい画像を作ります。拡散モデルでは、ノイズから少しずつ画像を組み立てる過程が使われます。高さや向きなどが厳密に必要なら、生成結果を確認します。</p>
+<h2>ミニ演習</h2>
+<p>棚の写真で商品を個別に数え、値札の文字も読みたい場合、何を組み合わせますか。</p>
+<details><summary>解答例を見る</summary><p>物体検出で商品ごとの位置を得て数えます。値札は OCR に渡して文字を読みます。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/5b-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="speech-concepts.html">前の章 · 音声認識と音声合成</a><a href="extraction-concepts.html">次の章 · AI を使った情報抽出</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

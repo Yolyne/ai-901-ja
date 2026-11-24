@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>テキストを分析する | AI-901 日本語学習ガイド</title>
+<meta name="description" content="Foundry の汎用モデルと Azure Language を使い分け、テキスト分析の結果をアプリに取り込みます。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#practice">AI-901 学習ガイド · 実践編</a>
+<h1>テキストを分析する</h1><p class="intro">Foundry の汎用モデルと Azure Language を使い分け、テキスト分析の結果をアプリに取り込みます。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>レビュー</li><li>分析方法を選ぶ</li><li>結果を集計・表示</li></ol></figure>
+<article>
+<h2>Foundry で使える分析方法</h2>
+<p>汎用モデルには「不満点を短くまとめ、根拠の文も添える」のように自由な指示を渡せます。Azure Language には、感情、キーフレーズ、言語、固有表現などの機能があります。試す場合は同じレビューを入力して、どの結果が後続処理に必要か比較します。</p>
+<h2>Python クライアントを作る</h2>
+<p>演習で指定される Azure Language のエンドポイントと認証方式を環境に設定します。SDK のテキスト分析クライアントに文章のリストを渡し、文書ごとの結果またはエラーを受け取ります。集計にはラベルに加えて入力の ID を保存し、エラーや再試行も追えるようにします。</p>
+<h2>エージェントと組み合わせる</h2>
+<p>エージェントから言語分析を呼び出して使う場合は、ツールで受け取る文章と返却する項目を定義します。「何が不満か」を聞いたときに結果を読み取って説明するか、文章が空なら適切に聞き返すかをポータルで試します。</p>
+<h2>ミニ演習</h2>
+<p>100件の口コミを配送・梱包別に集計したい場合、どんな出力が必要ですか。</p>
+<details><summary>解答例を見る</summary><p>口コミ ID、評価対象、感情ラベルを組で出し、複数の評価対象が含まれる場合は個別に記録します。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/5-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-agents.html">前の章 · 生成 AI とエージェントを試す</a><a href="foundry-speech.html">次の章 · 音声を扱う</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

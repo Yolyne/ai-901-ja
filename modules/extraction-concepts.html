@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI を使った情報抽出 | AI-901 日本語学習ガイド</title>
+<meta name="description" content="ばらばらな形式の文書・画像・音声から、業務で使える項目を取り出す考え方を学びます。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#concepts">AI-901 学習ガイド · 基礎編</a>
+<h1>AI を使った情報抽出</h1><p class="intro">ばらばらな形式の文書・画像・音声から、業務で使える項目を取り出す考え方を学びます。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>元データ</li><li>内容を認識</li><li>項目と型に割り当て</li></ol></figure>
+<article>
+<h2>情報抽出の目的</h2>
+<p>情報抽出は、画像、文書、録音などから指定した項目を構造化する処理です。請求書であれば「請求番号」「期日」「合計金額」、通話であれば「問い合わせの理由」「次の対応」などです。用途が決まれば抽出する項目と型を定義できます。</p>
+<h2>光学文字認識（OCR）</h2>
+<p>OCR は画像上の文字を認識します。ページのレイアウト、手書き、傾き、低解像度が精度に影響します。文字列を得る段階と、それが請求先なのか配送先なのかを判断する段階を分けて考えます。</p>
+<h2>項目の抽出と対応付け</h2>
+<p>「合計」と「小計」がある請求書から総額だけを得るには、ラベルの意味や表の構造を読み取ります。日付は形式をそろえ、金額を数値と通貨に分けます。不明な値の扱いと、数値の矛盾を検出したときの確認方法も決めます。</p>
+<h2>ミニ演習</h2>
+<p>OCR が 5 個の金額を返しました。経理システムに登録する総額を確定するには何が必要ですか。</p>
+<details><summary>解答例を見る</summary><p>各金額を小計、税額、総額などに対応付けます。ラベルと表の位置を手がかりにし、小計と税額の和も照合できます。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/6b-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="vision-concepts.html">前の章 · コンピューター ビジョン</a><a href="rag.html">次の章 · 検索拡張生成（RAG）</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

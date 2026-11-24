@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI の全体像 | AI-901 日本語学習ガイド</title>
+<meta name="description" content="AI に任せたい仕事を、入力と出力の組み合わせから見分けられるようになります。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#concepts">AI-901 学習ガイド · 基礎編</a>
+<h1>AI の全体像</h1><p class="intro">AI に任せたい仕事を、入力と出力の組み合わせから見分けられるようになります。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>問い合わせ</li><li>内容を判定</li><li>担当部署に振り分け</li></ol></figure>
+<article>
+<h2>入力と出力から考える</h2>
+<p>機械学習では、過去のデータから規則性を学び、新しい入力に対して分類や予測を行います。たとえば、過去の問い合わせと担当部署の組から、次の問い合わせの振り分け先を予測できます。AI の機能を選ぶときは、最初に使える入力と必要な出力を書き出します。</p>
+<h2>生成 AI とエージェント</h2>
+<p>生成 AI は指示に応じて文章や画像などを作ります。エージェントはモデルに指示とツールを組み合わせ、必要なときに検索や外部機能の呼び出しを行います。返信案を作る場合と、発送状況を調べて返信する場合では、後者に配送データへアクセスする仕組みが必要です。</p>
+<h2>テキスト・音声・画像・書類</h2>
+<p>文章には感情分析や固有表現抽出を、音声には認識と合成を、画像には分類や物体検出を使えます。書類から品名や金額を表に整理するなら情報抽出です。1つのアプリで、電話を文字起こししてから要約するように複数の機能を組み合わせることもあります。</p>
+<h2>責任ある AI</h2>
+<p>公平性は特定の集団に誤りが偏らないか、信頼性と安全性は故障時も危害を抑えられるかに関わります。プライバシーとセキュリティはデータやアクセスの保護、包摂性は多様な利用者が使える設計に関わります。透明性のために機能と限界を知らせ、説明責任のために判断や問題対応を担う人を決めます。</p>
+<h2>ミニ演習</h2>
+<p>留守電を文字にし、返金依頼かどうか判定する機能を考えてください。どの処理を順に使いますか。</p>
+<details><summary>解答例を見る</summary><p>音声認識で文字にし、テキスト分類で返金依頼か判定します。認識に失敗した例は人が確認できるようにします。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/7b-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="generative-ai.html">次の章 · 生成 AI と AI エージェント</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

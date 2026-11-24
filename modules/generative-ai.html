@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生成 AI と AI エージェント | AI-901 日本語学習ガイド</title>
+<meta name="description" content="LLM、プロンプト、エージェントがそれぞれ何をするのかを説明できるようになります。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#concepts">AI-901 学習ガイド · 基礎編</a>
+<h1>生成 AI と AI エージェント</h1><p class="intro">LLM、プロンプト、エージェントがそれぞれ何をするのかを説明できるようになります。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>プロンプト</li><li>トークン化</li><li>次のトークンを予測</li></ol></figure>
+<article>
+<h2>大規模言語モデル</h2>
+<p>LLM はテキストをトークンに分けて処理します。トークンは単語全体やその一部などです。モデルはこれまでの文脈を参照しながら、その後に来るトークンを繰り返し選ぶことで文章を生成します。コンテキスト ウィンドウは一度に扱えるトークン量に関係し、長い入力や会話履歴では上限を考慮します。</p>
+<h2>プロンプトで仕事を伝える</h2>
+<p>「要約して」に、対象、目的、制約、期待する形式を足してみましょう。「次の議事録を読み、決定事項と担当者を表にしてください。担当者が不明なら『未定』と書いてください」と指定すると、出力をチェックしやすくなります。回答形式を見せたい場合は短い入出力例を添えます。</p>
+<h2>エージェントのツール</h2>
+<p>注文状況を確認するエージェントには、注文番号を入力として受け取る参照ツールを渡します。モデルが入力を組み立て、実行環境がツールを呼び出し、その結果をモデルに戻します。閲覧と更新の権限を分け、実際に注文を変更する操作は確認を挟みます。</p>
+<h2>出力を点検する</h2>
+<p>モデルは根拠のない回答を自然な文章で出すことがあります。事実が必要な質問では資料を渡すか検索させ、出典と照らし合わせます。プロンプトを変更するときは、代表例と例外例を固定して変更前後を比較します。</p>
+<h2>ミニ演習</h2>
+<p>「この議事録を整理して」を、毎回同じ形式で返るように書き換えてください。</p>
+<details><summary>解答例を見る</summary><p>「決定事項、担当者、期限を表にしてください。記載がない欄は『不明』とし、推測で埋めないでください。」</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/7a-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="ai-overview.html">前の章 · AI の全体像</a><a href="text-analysis.html">次の章 · 自然言語処理とテキスト分析</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

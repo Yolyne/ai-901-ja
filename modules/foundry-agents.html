@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生成 AI とエージェントを試す | AI-901 日本語学習ガイド</title>
+<meta name="description" content="モデルを選んで応答を得るところから、ツール付きのエージェントを試すところまで学びます。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#practice">AI-901 学習ガイド · 実践編</a>
+<h1>生成 AI とエージェントを試す</h1><p class="intro">モデルを選んで応答を得るところから、ツール付きのエージェントを試すところまで学びます。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>モデルを選択</li><li>ポータルで試す</li><li>Python で呼ぶ</li><li>ツールを追加</li></ol></figure>
+<article>
+<h2>モデルとデプロイの選択</h2>
+<p>チャット、画像入力、音声など、必要な入出力を先に決めます。デプロイ方式によって対応リージョンや料金、処理容量が異なります。応答の長さや、対応していれば温度などの生成設定を変更し、同じ質問で挙動を比較します。</p>
+<h2>生成モデルを呼び出す</h2>
+<p>プレイグラウンドでシステム メッセージに役割とルールを書き、ユーザー メッセージに依頼を入れます。Python クライアントでは公式演習の SDK を使い、資格情報でプロジェクトに接続して推論クライアントを取得します。デプロイ名と入力を渡し、応答本文を取得して表示します。認証エラーとデプロイ名の誤りは別々に切り分けます。</p>
+<h2>エージェントの作成と利用</h2>
+<p>エージェントにモデル、指示、必要なツールを設定して保存します。ポータルのテスト画面で通常の質問と、ツールを必要とする質問の両方を送ります。クライアント側からはプロジェクトへ接続し、作成したエージェントを指定してメッセージを送り、応答を受け取ります。</p>
+<h2>ミニ演習</h2>
+<p>「返品手順を説明し、注文番号があれば配送状況も調べる」エージェントを、どんな入力でテストしますか。</p>
+<details><summary>解答例を見る</summary><p>一般的な返品質問、有効な注文番号、存在しない注文番号、番号のない問い合わせを用意します。配送参照が必要なときだけツールを使うか確認します。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/6-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-basics.html">前の章 · Azure で AI 開発を始める</a><a href="foundry-text.html">次の章 · テキストを分析する</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>

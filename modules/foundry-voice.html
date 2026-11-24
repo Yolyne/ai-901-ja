@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>音声で対話するエージェントを試す | AI-901 日本語学習ガイド</title>
+<meta name="description" content="音声エージェントを設定し、音声ならではの使いやすさをテストします。">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header class="lesson-header"><div class="wrap">
+<a href="../index.html#practice">AI-901 学習ガイド · 実践編</a>
+<h1>音声で対話するエージェントを試す</h1><p class="intro">音声エージェントを設定し、音声ならではの使いやすさをテストします。</p>
+</div></header>
+<main id="main" class="wrap lesson">
+<figure class="flow"><figcaption>処理の流れ</figcaption><ol><li>利用者の発話</li><li>エージェントの状況判断</li><li>音声応答</li></ol></figure>
+<article>
+<h2>音声エージェントを作る</h2>
+<p>用途と対応する言語を決め、Foundry で演習が指定するプロジェクトと音声対応モデルを準備します。音声エージェントを開き、マイクから短く呼びかけて応答が再生されるか確認します。マイク権限、音声デバイス、モデルの利用条件は最初に切り分けます。</p>
+<h2>用途に合わせて設定する</h2>
+<p>予約案内なら「日時を聞く」「復唱する」「空き枠が確認できないときは確認できないと伝える」のように、役割と会話の進め方を指示します。利用する声や発話の途切れを扱う設定がある場合は、実際の会話に近い入力で調整します。</p>
+<h2>テストと改善</h2>
+<p>通常の発話、言い直し、長い間、発話の途中での割り込みを試します。音声を聞き取る段階、意図を理解する段階、返答までの待ち時間を分けて記録します。プロンプトや音声設定を見直したら、同じテストで以前より改善したかを確認します。</p>
+<h2>ミニ演習</h2>
+<p>「金曜、いや土曜です」と言ったとき、どんな返しなら予約ミスを減らせますか。</p>
+<details><summary>解答例を見る</summary><p>訂正された土曜を復唱し、時間など不足項目を尋ねます。最終確定前に日時をまとめて確認します。</p></details>
+<h2>Microsoft Learn で手を動かす</h2>
+<p>公式演習の手順とサンプルで学んだ内容を試せます。Azure を使う演習では、アカウントやリソースの利用条件を確認してください。</p>
+<p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/5-exercise">この章の公式演習を開く</a></p>
+</article>
+<nav class="lesson-nav" aria-label="前後のモジュール"><a href="foundry-iq.html">前の章 · Microsoft Foundry IQ で回答に根拠を持たせる</a><a href="../index.html">目次に戻る</a></nav>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn を参照して作成した非公式の日本語ガイドです。</p>
+<a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/">参照元の公式モジュール</a></div></footer>
+</body>
+</html>
