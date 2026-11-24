@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Microsoft Learn の AI-901 学習パス2本を、自然な日本語で読み進めるための学習ガイド。">
+<title>AI-901 日本語学習ガイド</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">本文へ移動</a>
+<header>
+<div class="wrap">
+<p class="eyebrow">MICROSOFT AZURE AI FUNDAMENTALS</p>
+<h1>AI-901 日本語学習ガイド</h1>
+<p class="intro">AI の仕組みを理解し、Microsoft Foundry で試してみる。<br>Microsoft Learn の2つのラーニングパスを、身近な例とともに学びます。</p>
+<nav aria-label="学習パス"><a href="#concepts">AI の基礎を学ぶ</a><a href="#practice">Azure で実践する</a></nav>
+</div>
+</header>
+<main class="wrap" id="main">
+<section id="concepts" aria-labelledby="concepts-title">
+<div class="section-top"><p class="eyebrow">基礎編 · 7モジュール</p><h2 id="concepts-title">開発者と技術者のための AI 基礎</h2>
+<p>解決したい課題に合わせて、生成 AI、音声、画像などの技術を使い分けられるようにしましょう。コンピューターと数学の基礎知識があると読み進めやすくなります。</p>
+<a href="https://learn.microsoft.com/ja-jp/training/paths/ai-concepts/">Microsoft Learn で基礎編を開く</a></div>
+<ol>
+<li><h3>AI の全体像</h3><p>AI が担う仕事には、文章を作る、画像の内容を見分ける、会話を書き起こす、書類から必要な項目を抜き出す、といった種類があります。問い合わせ対応を例にすると、内容の分類と返信文の作成では必要な機能が異なります。目的から逆算して機能を選びます。</p><p>責任ある AI の観点では、公平性、信頼性と安全性、プライバシーとセキュリティ、包摂性、透明性、説明責任を考えます。たとえば、利用者の属性や話し方によって誤りが偏っていないかを確かめ、問題が起きたときに誰が対応するか決めておきます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-ai-fundamentals/">公式モジュールを読む</a></p></li>
+<li><h3>生成 AI と AI エージェント</h3><p>大規模言語モデル（LLM）は、入力をトークンという単位で扱い、前後の文脈から次に続くトークンを予測して文章を組み立てます。プロンプトには目的、前提、出力形式を具体的に書きます。たとえば「次の議事録から決定事項と担当者を表にまとめて」と伝えると、必要な出力が明確になります。</p><p>エージェントはモデルに指示やツールを組み合わせ、必要に応じて情報を検索したり外部の機能を呼び出したりします。モデルはもっともらしい誤りを出すことがあるため、重要な回答は根拠まで確認します。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/fundamentals-generative-ai/">公式モジュールを読む</a></p></li>
+<li><h3>自然言語処理とテキスト分析</h3><p>文章から話題を拾うならキーフレーズ抽出、人名や組織名などを見つけるなら固有表現認識、評価の傾向を見るなら感情分析、要点を短く整理するなら要約を使います。「配送は速かったが梱包が悪かった」というレビューでは、配送と梱包を分けて評価すると改善点が見えます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-language/">公式モジュールを読む</a></p></li>
+<li><h3>音声認識と音声合成</h3><p>音声認識は話し声をテキストに変えます。会議の文字起こしや字幕に使えます。音声合成はテキストから音声を作り、案内や読み上げに使えます。認識結果を他言語に翻訳すれば、多言語の字幕にも応用できます。言語や専門用語、周囲の雑音によって認識の精度は変わります。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-ai-speech/">公式モジュールを読む</a></p></li>
+<li><h3>コンピューター ビジョン</h3><p>画像分類は画像全体にラベルを付け、物体検出は画像の中で物体がある位置も特定します。OCR（光学文字認識）は画像に写った文字を読み取ります。たとえば商品棚の写真から商品を数えるなら物体検出、値札の文字列を読み取るなら OCR が役立ちます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-computer-vision/">公式モジュールを読む</a></p></li>
+<li><h3>AI を使った情報抽出</h3><p>請求書から請求番号、日付、明細、合計額を取り出し、決まった形式で保存するような処理です。OCR で読んだ文字や音声認識で得た発話を手がかりに、必要な項目へ整理します。PDF や画像だけでなく、録音から次の対応事項を取り出す用途にも応用できます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/introduction-information-extraction/">公式モジュールを読む</a></p></li>
+<li><h3>検索拡張生成（RAG）</h3><p>質問に関係する資料を検索し、見つかった内容をモデルに渡して回答を作る仕組みです。社内の出張規程を答える場合は、規程の該当箇所を探してから回答を生成します。資料を検索しやすく分割して索引を作り、回答には参照先を添えます。必要な資料が見つからない場合の応答も決めておきます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/rag-fundamentals/">公式モジュールを読む</a></p></li>
+</ol>
+</section>
+<section id="practice" aria-labelledby="practice-title">
+<div class="section-top"><p class="eyebrow">実践編 · 8モジュール</p><h2 id="practice-title">Azure で始める AI アプリとエージェント</h2>
+<p>Microsoft Foundry でモデルやサービスを選び、ポータルと Python から使う流れを学びます。演習を試す場合は、各モジュールで Azure の利用条件を確認してください。</p>
+<a href="https://learn.microsoft.com/ja-jp/training/paths/get-started-ai-apps-agents/">Microsoft Learn で実践編を開く</a></div>
+<ol>
+<li><h3>Azure で AI 開発を始める</h3><p>Foundry プロジェクトを作り、モデルや AI サービスをアプリから利用するための接続先を確認します。Azure のサブスクリプションは利用や課金を管理し、リソース グループは関連するリソースをまとめます。演習では、ポータル上で試した機能を、アプリから呼び出すときにどのエンドポイントを使うか意識しましょう。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-ai-in-azure/">公式モジュールを読む</a></p></li>
+<li><h3>生成 AI とエージェントを試す</h3><p>用途に合うモデルをデプロイし、Foundry のプレイグラウンドで応答を確認します。システム メッセージで役割や振る舞いを指定し、ユーザー メッセージでその場の依頼を渡します。次に、Foundry の SDK や API で応答を取得し、簡単なクライアントを作ります。</p><p>エージェントを作るときは、指示に加えて利用できるツールを設定し、質問に対して意図した処理が選ばれるかテストします。モデル選びでは、対応する入力形式、応答速度、費用も確認します。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-with-generative-ai-and-agents/">公式モジュールを読む</a></p></li>
+<li><h3>テキストを分析する</h3><p>レビューを使い、汎用モデルに要点をまとめさせる方法と、Azure Language で感情や固有表現などを取り出す方法を試します。続いて、Python のクライアントから文章を送り、返された結果を表示します。決まった形式で分析結果を扱う場合は、必要な項目が安定して返るかを確かめます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-text-analysis-azure/">公式モジュールを読む</a></p></li>
+<li><h3>音声を扱う</h3><p>対応するマルチモーダル モデルに音声を入力し、発話に対する回答を得ます。Azure Speech を使う演習では、音声認識や音声合成をアプリに組み込みます。同じ音声でも「何を話したか記録する」場合と「発話の内容に答える」場合では、必要な処理が変わります。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-speech-azure/">公式モジュールを読む</a></p></li>
+<li><h3>画像を理解し、画像を生成する</h3><p>画像と質問をマルチモーダル モデルに渡し、写っている内容を説明させます。画像生成モデルでは、被写体や背景、構図を言葉で指定して新しい画像を作ります。アプリに組み込む場合は、画像から何を受け取るかを先に決め、入力の形式と返ってくる結果を確認します。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-vision-azure/">公式モジュールを読む</a></p></li>
+<li><h3>文書・画像・音声・動画から情報を取り出す</h3><p>Azure Content Understanding で、取り出したい項目とデータ型を定義し、サンプルから結果を確認します。請求書なら日付や合計額、通話なら問い合わせの内容や対応事項が候補です。クライアントから抽出を実行し、結果を受け取って後続の処理に渡す流れを押さえます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-information-extraction/">公式モジュールを読む</a></p></li>
+<li><h3>Microsoft Foundry IQ で回答に根拠を持たせる</h3><p>エージェントが業務資料を参照できるよう、ナレッジ ベースを使って検索を組み込みます。規程に関する質問を出し、回答が実際の資料に沿っているか、参照先から根拠をたどれるかを確かめます。複数の資料にまたがる質問でも、必要な情報が拾えているかを見ます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-iq/">公式モジュールを読む</a></p></li>
+<li><h3>音声で対話するエージェントを試す</h3><p>Foundry で音声エージェントを設定し、話しかけて応答を確認します。予約案内などを例に、発話が途切れたり途中で言い直したりしても会話を続けられるか試します。聞き取り、応答の内容、返答までの待ち時間をそれぞれ見ると、改善箇所を絞れます。</p><p><a href="https://learn.microsoft.com/en-us/training/modules/get-started-foundry-voice-agents/">公式モジュールを読む</a></p></li>
+</ol>
+</section>
+</main>
+<footer><div class="wrap"><p>Microsoft Learn の学習パスをもとにした非公式の日本語ガイドです。演習手順と確認問題は各公式ラーニングパスで確認できます。</p><ul><li><a href="https://learn.microsoft.com/ja-jp/credentials/certifications/exams/ai-901/">AI-901 試験ページ</a></li><li><a href="https://learn.microsoft.com/ja-jp/credentials/certifications/resources/study-guides/ai-901">AI-901 公式学習ガイド</a></li></ul></div></footer>
+</body>
+</html>
